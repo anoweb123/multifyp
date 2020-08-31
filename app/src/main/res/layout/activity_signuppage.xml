@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffeee7"
     tools:context=".signuppage">
 
 
@@ -12,18 +13,31 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <ImageView
+                android:src="@drawable/choosepic"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+            </ImageView>
+
+            <ImageView
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:layout_margin="16dp"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </ImageView>
-    <TextView
+
+        </RelativeLayout>
+
+        <TextView
         android:textColor="@color/colorPrimary"
         android:layout_gravity="center"
         android:text="Sign up"
-        android:layout_marginTop="60dp"
         android:textSize="30sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -33,10 +47,6 @@
         android:textColorHint="#9A9A9A"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxCornerRadiusTopStart="24dp"
-        app:boxCornerRadiusBottomEnd="24dp"
-        app:boxCornerRadiusBottomStart="24dp"
-        app:boxCornerRadiusTopEnd="24dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
@@ -57,10 +67,6 @@
             android:textColorHint="#9A9A9A"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
@@ -81,10 +87,6 @@
         <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxCornerRadiusTopStart="24dp"
-        app:boxCornerRadiusBottomEnd="24dp"
-        app:boxCornerRadiusBottomStart="24dp"
-        app:boxCornerRadiusTopEnd="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="8dp"
@@ -107,10 +109,6 @@
             android:textColorHint="#9A9A9A"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
@@ -128,9 +126,10 @@
 
         <Button
         android:layout_marginTop="50dp"
-        app:cornerRadius="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/signup"
+        android:backgroundTint="#f18401"
+        android:layout_marginRight="16dp"
         android:textColor="@color/cardview_light_background"
         android:text="Sign up"
         android:layout_width="match_parent"

@@ -9,13 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".dashboardcustomer"></activity>
-        <activity
-            android:name=".signuppage"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".choose"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        </activity>
         <activity
             android:name=".loginpagecustomer"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        </activity>
+        <activity
+            android:name=".cart"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".shopdetails"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".clickonproduct"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".dashboardcustomer"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".signuppage"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".splashscreen"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
