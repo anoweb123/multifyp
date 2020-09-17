@@ -2,24 +2,19 @@ package com.ali.anoweb;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mongodb.ClientSessionOptions;
-
-import com.mongodb.client.ChangeStreamIterable;
-import com.mongodb.client.ClientSession;
-import com.mongodb.client.ListDatabasesIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoIterable;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -33,7 +28,7 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.User;
 
 public class loginpagecustomer extends AppCompatActivity {
-TextView signup;
+TextView signup,forget;
 Button login;
 App app;
 //   MongoClientURI uri;
@@ -43,33 +38,37 @@ EditText email,pass;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginpagecustomer);
 
+
+
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+
+
+
         signup=findViewById(R.id.signup);
         login=findViewById(R.id.login);
+        forget=findViewById(R.id.forget);
 
-        email=findViewById(R.id.email);
-        pass=findViewById(R.id.pass);
 
-//        Realm.init(this);
-//        String appID ="application-0-crqjz";
-//        app = new App(new AppConfiguration.Builder(appID)
-//                .build());
 
-//
-//        MongoClientURI uri = new MongoClientURI(
-//                "mongodb+srv://web:<password>@cluster0.ss9qt.mongodb.net/<dbname>?retryWrites=true&w=majority");
-//        MongoClient mongoClient = new MongoClient(uri);
-//        MongoDatabase database = mongoClient.getDatabase("test");
+        forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(loginpagecustomer.this,forgetpassword.class);
+                startActivity(intent);
 
-//        app.getEmailPasswordAuth().registerUserAsync("haiderzafar055@gmail.com", "hhhhhh", new App.Callback<Void>() {
-//            @Override
-//            public void onResult(App.Result<Void> it) {
-//                if (it.isSuccess()) {
-//                    Toast.makeText(loginpagecustomer.this, "Successfully registered user.", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(loginpagecustomer.this,it.getError().toString(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+            }
+
+
+        });
 
 
 
@@ -77,7 +76,8 @@ EditText email,pass;
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(loginpagecustomer.this,signuppage.class);
-                startActivityForResult(intent,1);
+                startActivity(intent);
+
             }
 
 
@@ -86,37 +86,17 @@ EditText email,pass;
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-//        Credentials emailPasswordCredentials = Credentials.emailPassword(email.getText().toString(), pass.getText().toString());
-
-//
-//                app.loginAsync(emailPasswordCredentials, new App.Callback<User>() {
-//            @Override
-//            public void onResult(App.Result<User> it) {
-//                if (it.isSuccess()) {
-//                    Intent intent=new Intent(loginpagecustomer.this,dashboardcustomer.class);
-//                    startActivity(intent);
-//                }
-//                else {
-//                    Toast.makeText(loginpagecustomer.this, it.getError().toString(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
                     Intent intent=new Intent(loginpagecustomer.this,dashboardcustomer.class);
                     startActivity(intent);
-
-
             }
         });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==1)
         {
+
             String name = data.getStringExtra("name");
             String email = data.getStringExtra("email");
             String password = data.getStringExtra("password");

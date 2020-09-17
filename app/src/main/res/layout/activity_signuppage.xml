@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffeee7"
+    android:background="@color/cardview_light_background"
     tools:context=".signuppage">
 
 
@@ -14,68 +14,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:layout_width="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+
+        <TextView
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="center"
+            android:text="Signup to SmartStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">
-            <ImageView
-                android:src="@drawable/choosepic"
-                android:scaleType="fitXY"
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
-            </ImageView>
-
-            <ImageView
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:layout_margin="16dp"
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        </ImageView>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_baseline_person_24gary">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
 
         </RelativeLayout>
 
-        <TextView
-        android:textColor="@color/colorPrimary"
-        android:layout_gravity="center"
-        android:text="Sign up"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:textColorHint="#9A9A9A"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        app:hintTextColor="@color/colorPrimary"
-        app:boxStrokeColor="@color/colorPrimary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="20dp">
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name">
-        </EditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
-
             android:textColorHint="#9A9A9A"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
             android:layout_marginRight="24dp"
             app:hintTextColor="@color/colorPrimary"
-            app:boxStrokeColor="@color/colorPrimary"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxBackgroundColor="@color/cardview_light_background"
+            app:boxStrokeColor="#FFB6C1"
+            android:layout_marginTop="20dp">
+            <EditText
+                android:id="@+id/name"
+                android:textCursorDrawable="@drawable/cursorcolor"
+                android:layout_width="match_parent"
+                android:inputType="textPersonName"
+                android:layout_height="wrap_content"
+                android:hint="Username">
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:textColorHint="#9A9A9A"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="24dp"
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
+            android:layout_marginRight="24dp"
+            app:hintTextColor="@color/colorPrimary"
+            app:boxBackgroundColor="@color/cardview_light_background"
+            app:boxStrokeColor="#FFB6C1"
             android:layout_marginTop="8dp">
             <EditText
                 android:id="@+id/email"
+                android:inputType="textEmailAddress"
+                android:textCursorDrawable="@drawable/cursorcolor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email">
@@ -83,57 +93,81 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:hintTextColor="@color/colorPrimary"
-        android:textColorHint="#9A9A9A"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/pass"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-
-    </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-
             android:textColorHint="#9A9A9A"
             android:layout_width="match_parent"
+            app:startIconDrawable="@drawable/ic_baseline_passswor"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            app:passwordToggleEnabled="true"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             app:hintTextColor="@color/colorPrimary"
-            app:boxStrokeColor="@color/colorPrimary"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginTop="8dp">
+            app:boxBackgroundColor="@color/cardview_light_background"
+            app:boxStrokeColor="#FFB6C1">
             <EditText
+                android:inputType="textPassword"
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:textCursorDrawable="@drawable/cursorcolor"
+                android:layout_height="wrap_content"
+                android:hint="Password">
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:textColorHint="#9A9A9A"
+            android:layout_width="match_parent"
+            app:startIconDrawable="@drawable/ic_baseline_passswor"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:passwordToggleEnabled="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            app:hintTextColor="@color/colorPrimary"
+            app:boxBackgroundColor="@color/cardview_light_background"
+            app:boxStrokeColor="#FFB6C1">
+            <EditText
+                android:inputType="textPassword"
                 android:id="@+id/conpass"
                 android:layout_width="match_parent"
+                android:textCursorDrawable="@drawable/cursorcolor"
                 android:layout_height="wrap_content"
                 android:hint="Confirm Password">
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
-
         <Button
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="16dp"
-        android:id="@+id/signup"
-        android:backgroundTint="#f18401"
-        android:layout_marginRight="16dp"
-        android:textColor="@color/cardview_light_background"
-        android:text="Sign up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Button>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Signup"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#fa4248"
+            app:cornerRadius="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        </Button>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Dont have an Account?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:textColor="#fa4248"
+                android:text="  Sign in"
+                android:textSize="14sp"
+                android:id="@+id/signin"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

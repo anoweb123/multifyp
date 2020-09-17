@@ -8,20 +8,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".dashboardcustomer">
-
-    <RelativeLayout
-    android:id="@+id/fragment"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
         app:menu="@menu/navmenu"
         android:id="@+id/botnav"
+        app:itemTextColor="#A9A9A9"
+        app:itemIconTint="#A9A9A9"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-<!--    <LinearLayout-->
+    <LinearLayout
+        android:id="@id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/botnav"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <!--    <LinearLayout-->
 <!--        android:orientation="vertical"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent">-->

@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#ffeee7"
+    android:weightSum="3"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".choose">
-
     <LinearLayout
+        android:layout_weight="1"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="match_parent">
         <ImageView
             android:scaleType="fitXY"
             android:src="@drawable/choosepic"
             android:layout_width="match_parent"
             android:layout_height="220dp">
         </ImageView>
-
+    </LinearLayout>
+<LinearLayout
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
         <TextView
             android:text="Login Or"
             android:layout_marginLeft="16dp"
@@ -41,7 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </TextView>
-
         <TextView
             android:textSize="20dp"
             android:textAlignment="center"
@@ -52,32 +56,35 @@
             android:text="Continue to shopping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </TextView>
-
+</LinearLayout>
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <Button
             android:layout_marginTop="100dp"
             android:text="Login"
             android:id="@+id/login"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:backgroundTint="#854a99"
+            android:backgroundTint="#662e93"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </Button>
-
         <Button
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_margin="8dp"
             android:id="@+id/signup"
             android:text="Sign Up"
+            android:layout_below="@id/login"
             android:backgroundTint="#f18401"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </Button>
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</LinearLayout>

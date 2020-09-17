@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.profilecustomer">
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.appcompat.widget.Toolbar
+            android:background="@drawable/gradient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
@@ -37,7 +34,19 @@
                 </ImageView>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
-
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/fragment"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:background="#f8f4f3"
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+        </View>
         <RelativeLayout
             android:background="@color/cardview_light_background"
             android:layout_width="match_parent"
@@ -49,13 +58,11 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textAllCaps="true"
+                android:layout_marginTop="8dp"
                 android:text="My profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </TextView>
-
-
             <LinearLayout
                 android:weightSum="2"
                 android:orientation="horizontal"
@@ -77,8 +84,8 @@
                         app:civ_border_width="2dp">
                     </de.hdodenhof.circleimageview.CircleImageView>
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="35sp"
+                        android:layout_height="35sp"
                         app:fabSize="mini"
                         android:layout_alignTop="@id/imageview_account_profile"
                         android:layout_centerInParent="true"
@@ -94,9 +101,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp">
                     <TextView
-                        android:text="Haider ali"
+                        android:text="Aleena Aamir"
                         android:drawableLeft="@drawable/ic_baseline_person_24"
                         android:textSize="16sp"
+                        android:drawablePadding="8dp"
                         android:layout_marginTop="50dp"
                         android:textColor="#9A9A9A"
                         android:layout_width="match_parent"
@@ -104,36 +112,44 @@
                     </TextView>
                     <TextView
                         android:drawableLeft="@drawable/ic_baseline_email_24"
-                        android:text="Hiaderali59@gmail.com"
+                        android:text="Aleenaaamir1@gmail.com"
                         android:textSize="14sp"
+                        android:drawablePadding="8dp"
                         android:layout_marginTop="16dp"
                         android:textColor="#9A9A9A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </TextView>
                     <TextView
-                        android:text="03147568943"
+                        android:text="03100000000"
                         android:textSize="14sp"
+                        android:drawablePadding="8dp"
                         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
                         android:layout_marginTop="16dp"
                         android:textColor="#9A9A9A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
                     </TextView>
 
                     <TextView
-                        android:text="nazeer block 4 first floor rehman porana"
+                        android:text="block 4 first floor rehman plaza"
                         android:textSize="14sp"
-                        android:drawableLeft="@drawable/ic_baseline_publish_24"
+                        android:drawableLeft="@drawable/address24"
                         android:layout_marginTop="16dp"
+                        android:drawablePadding="8dp"
                         android:textColor="#9A9A9A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </TextView>
                 </LinearLayout>
+
             </LinearLayout>
         </RelativeLayout>
+        <View
+            android:background="#f8f4f3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+        </View>
         <LinearLayout
             android:layout_gravity="center"
             android:orientation="horizontal"
@@ -158,30 +174,38 @@
             </TextView>
         </LinearLayout>
         <View
-            android:layout_margin="8dp"
-            android:background="#9A9A9A"
+            android:background="#f8f4f3"
             android:layout_width="match_parent"
-            android:layout_height="1dp">
+            android:layout_height="30dp">
         </View>
         <LinearLayout
             android:weightSum="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="0.6"
-                android:text="Name"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
-                android:textSize="14dp"
-                android:layout_margin="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-            <LinearLayout
+                <RelativeLayout
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="12dp"
+                        android:drawableLeft="@drawable/ic_baseline_person_24"
+                        android:drawablePadding="16dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/completed"
+                        android:text="Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </RelativeLayout>
+            <RelativeLayout
                 android:layout_weight="1.4"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="match_parent">
 <!--                <View-->
 <!--                    android:background="#9A9A9A"-->
 <!--                    android:layout_width="1dp"-->
@@ -194,19 +218,20 @@
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content">-->
 <!--                </TextView>-->
-
                 <ImageView
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_baseline_edit_24"
                     android:scaleType="fitCenter"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/nameupdate"
                     android:layout_width="match_parent"
                     android:layout_height="25dp">
                 </ImageView>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
         <View
             android:layout_margin="8dp"
-            android:background="#9A9A9A"
+            android:background="#dae1e6"
             android:layout_width="match_parent"
             android:layout_height="1dp">
         </View>
@@ -215,20 +240,29 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
                 android:layout_weight="0.6"
-                android:text="Address"
-                android:textSize="14dp"
-                android:drawableLeft="@drawable/ic_baseline_publish_24"
-                android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-            <LinearLayout
+                android:layout_height="50dp">
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="12dp"
+                    android:drawableLeft="@drawable/address24"
+                    android:drawablePadding="16dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/address"
+                    android:text="Address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_weight="1.4"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="match_parent">
 <!--                <View-->
 <!--                    android:background="#9A9A9A"-->
 <!--                    android:layout_width="1dp"-->
@@ -242,18 +276,20 @@
 <!--                    android:layout_height="wrap_content">-->
 <!--                </TextView>-->
                 <ImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/addressupdate"
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_baseline_edit_24"
                     android:scaleType="fitCenter"
                     android:layout_width="match_parent"
                     android:layout_height="25dp">
                 </ImageView>
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
         <View
             android:layout_margin="8dp"
-            android:background="#9A9A9A"
+            android:background="#dae1e6"
             android:layout_width="match_parent"
             android:layout_height="1dp">
         </View>
@@ -262,20 +298,29 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
                 android:layout_weight="0.6"
-                android:text="Phone No"
-                android:textSize="14dp"
-                android:drawableLeft="@drawable/ic_baseline_local_phone_24"
-                android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-            <LinearLayout
+                android:layout_height="50dp">
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="12dp"
+                    android:drawablePadding="16dp"
+                    android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/phone"
+                    android:text="Phone No"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_weight="1.4"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="match_parent">
 <!--                <View-->
 <!--                    android:background="#9A9A9A"-->
 <!--                    android:layout_width="1dp"-->
@@ -288,19 +333,20 @@
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content">-->
 <!--                </TextView>-->
-
                 <ImageView
+                    android:id="@+id/phoneupdate"
                     android:layout_margin="8dp"
+                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_baseline_edit_24"
                     android:scaleType="centerInside"
                     android:layout_width="match_parent"
                     android:layout_height="25dp">
                 </ImageView>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
         <View
+            android:background="#dae1e6"
             android:layout_margin="8dp"
-            android:background="#9A9A9A"
             android:layout_width="match_parent"
             android:layout_height="1dp">
         </View>
@@ -309,20 +355,29 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
                 android:layout_weight="0.6"
-                android:text="Change password"
-                android:textSize="14dp"
-                android:drawableLeft="@drawable/ic_baseline_label_important_24"
-                android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-            <LinearLayout
+                android:layout_height="50dp">
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="12dp"
+                    android:drawableLeft="@drawable/ic_baseline_passswor"
+                    android:drawablePadding="16dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/pass"
+                    android:text="Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_weight="1.4"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="match_parent">
 <!--                <View-->
 <!--                    android:background="#9A9A9A"-->
 <!--                    android:layout_width="1dp"-->
@@ -335,20 +390,20 @@
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content">-->
 <!--                </TextView>-->
-
                 <ImageView
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_baseline_edit_24"
                     android:scaleType="fitCenter"
+                    android:id="@+id/updatepassword"
+                    android:layout_centerInParent="true"
                     android:layout_width="match_parent"
                     android:layout_height="25dp">
                 </ImageView>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
-
         <View
             android:layout_margin="8dp"
-            android:background="#9A9A9A"
+            android:background="#dae1e6"
             android:layout_width="match_parent"
             android:layout_height="1dp">
         </View>
@@ -357,47 +412,46 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
                 android:layout_weight="0.6"
-                android:text="Email"
-                android:drawableLeft="@drawable/ic_baseline_email_24"
-                android:textSize="14dp"
-                android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-            <LinearLayout
+                android:layout_height="50dp">
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="12dp"
+                    android:drawablePadding="16dp"
+                    android:drawableLeft="@drawable/ic_baseline_email_24"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/email"
+                    android:text="Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_weight="1.4"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
-<!--                <View-->
-<!--                    android:background="#9A9A9A"-->
-<!--                    android:layout_width="1dp"-->
-<!--                    android:layout_height="match_parent">-->
-<!--                </View>-->
-<!--                <TextView-->
-<!--                    android:text="Edit"-->
-<!--                    android:textSize="14dp"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content">-->
-<!--                </TextView>-->
-
+                android:layout_height="match_parent">
                 <ImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/emailupdate"
                     android:src="@drawable/ic_baseline_edit_24"
                     android:scaleType="fitCenter"
                     android:layout_margin="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="25dp">
                 </ImageView>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
         <View
+            android:background="#dae1e6"
             android:layout_margin="8dp"
-            android:background="#9A9A9A"
             android:layout_width="match_parent"
             android:layout_height="1dp">
         </View>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+</LinearLayout>

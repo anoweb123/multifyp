@@ -3,6 +3,7 @@ package com.ali.anoweb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,17 +12,23 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ali.anoweb.Fragments.mainDashboardFragment;
+import com.ali.anoweb.Fragments.productfragment;
 import com.ali.anoweb.Fragments.profilecustomer;
 import com.ali.anoweb.Fragments.searchfragment;
+import com.ali.anoweb.Fragments.wishlist;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -33,7 +40,7 @@ import java.util.List;
 
 import io.realm.mongodb.App;
 
-public class dashboardcustomer extends AppCompatActivity {
+public class dashboardcustomer extends AppCompatActivity{
 
     ImageView cart;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -43,6 +50,7 @@ public class dashboardcustomer extends AppCompatActivity {
     RecyclerView recyclerView;
     adaperslider adapter;
     List<modelslider> models;
+    int count=0;
     App app;
     androidx.appcompat.widget.SearchView searchView;
     RecyclerView recpoduct;
@@ -54,21 +62,40 @@ public class dashboardcustomer extends AppCompatActivity {
     List<modelbanner> modelsliders;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (count==1){
+            mainDashboardFragment mainDashboardFragment = new mainDashboardFragment();
+            FragmentManager fragmentManagers = getSupportFragmentManager();
+            FragmentTransaction fragmentTransactions = fragmentManagers.beginTransaction();
+            fragmentTransactions.add(R.id.fragment, mainDashboardFragment);
+            fragmentTransactions.commit();
+        }
+
+
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboardcustomer);
 
 
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+
 
         bottomNavigationView=findViewById(R.id.botnav);
-//        SliderView sliderView = findViewById(R.id.imageSlider);
-//        recpoduct=findViewById(R.id.productrec);
-//
-//        cart=findViewById(R.id.cart);
-//        menu=findViewById(R.id.menu);
-//
-//        searchView=findViewById(R.id.search);
-
 
         mainDashboardFragment mainDashboardFragment = new mainDashboardFragment();
 
@@ -89,6 +116,7 @@ public class dashboardcustomer extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.fragment, details);
                         fragmentTransaction.commit();
+                        count=3;
                         break;
                     case R.id.navigation_home:
                         mainDashboardFragment mainDashboardFragment = new mainDashboardFragment();
@@ -96,6 +124,7 @@ public class dashboardcustomer extends AppCompatActivity {
                         FragmentTransaction fragmentTransactions = fragmentManagers.beginTransaction();
                         fragmentTransactions.replace(R.id.fragment, mainDashboardFragment);
                         fragmentTransactions.commit();
+                        count=0;
                         break;
                     case R.id.navigation_search:
                         searchfragment searchfragment = new searchfragment();
@@ -103,9 +132,26 @@ public class dashboardcustomer extends AppCompatActivity {
                         FragmentTransaction fragmentTransactionssea = fragmentManagersea.beginTransaction();
                         fragmentTransactionssea.replace(R.id.fragment, searchfragment);
                         fragmentTransactionssea.commit();
+                        count=1;
+                        Toast.makeText(dashboardcustomer.this, String.valueOf(count), Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.navigation_more:
+                        morefragment morefragment = new morefragment();
+                        FragmentManager fragmentManager1 = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                        fragmentTransaction1.replace(R.id.fragment, morefragment);
+                        fragmentTransaction1.commit();
+                        count=4;
+                        break;
+                    case R.id.navigation_wish:
+                        wishlist morefragmentwish = new wishlist();
+                        FragmentManager fragmentManagerwish = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransactionwish1 = fragmentManagerwish.beginTransaction();
+                        fragmentTransactionwish1.replace(R.id.fragment, morefragmentwish);
+                        fragmentTransactionwish1.commit();
+                        count=2;
                         break;
                 }
-
                 return true;
             }
         });
@@ -185,4 +231,5 @@ public class dashboardcustomer extends AppCompatActivity {
 //        sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
 //        sliderView.startAutoCycle();
    }
+
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment"
+    tools:context=".Fragments.updateemail">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@drawable/gradient"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_baseline_arrow_back_24white"
+                android:layout_width="wrap_content"
+                android:id="@+id/back"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content">
+
+            </ImageView>
+
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:layout_below="@+id/toolbar"
+        android:hint="Enter password to verify"
+        android:id="@+id/enterpass"
+        android:layout_margin="16dp"
+
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </EditText>
+
+
+    <EditText
+        android:layout_below="@+id/enterpass"
+        android:hint="Enter new Email"
+        android:id="@+id/updatename"
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </EditText>
+    <Button
+        android:layout_margin="32dp"
+        android:text="Update"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+</RelativeLayout>

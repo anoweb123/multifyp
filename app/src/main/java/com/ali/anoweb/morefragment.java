@@ -3,10 +3,19 @@ package com.ali.anoweb;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+
+import com.ali.anoweb.Fragments.completedorders;
+import com.ali.anoweb.Fragments.history;
+import com.ali.anoweb.Fragments.pendingorders;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +24,8 @@ import android.view.ViewGroup;
  */
 public class morefragment extends Fragment {
 
+    ImageView option;
+    TextView completed,pending,history;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,7 +53,6 @@ public class morefragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +63,51 @@ public class morefragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View view= inflater.inflate(R.layout.fragment_morefragment, container, false);
+        option=view.findViewById(R.id.option);
+        completed=view.findViewById(R.id.completed);
+        pending=view.findViewById(R.id.pending);
+        history=view.findViewById(R.id.history);
+        completed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                completedorders completedorders = new completedorders();
+                FragmentManager fragmentManager1 = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                fragmentTransaction1.replace(R.id.fragment, completedorders);
+                fragmentTransaction1.commit();
+            }
+        });
+        pending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pendingorders pending =new pendingorders();
+                FragmentManager fragmentManager1 = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                fragmentTransaction1.replace(R.id.fragment,pending);
+                fragmentTransaction1.commit();
+            }
+        });
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                history history =new history();
+                FragmentManager fragmentManager1 = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                fragmentTransaction1.replace(R.id.fragment,history);
+                fragmentTransaction1.commit();
+            }
+        });
+        option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(getContext(),option);
+                popupMenu.getMenuInflater().inflate(R.menu.optionsetting, popupMenu.getMenu());
+                popupMenu.show();
+            }
+        });
         return  view;
     }
 }

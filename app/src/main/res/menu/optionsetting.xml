@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Help centre"
+        android:icon="@drawable/about"
+        android:id="@+id/help">
+    </item>
+
+    <item
+        android:title="Terms and conditions"
+        android:icon="@drawable/terms"
+        android:id="@+id/term">
+    </item>
+
+    <item
+        android:title="Privacy policy"
+        android:icon="@drawable/privacy"
+        android:id="@+id/privacy">
+    </item>
+
+    <item
+        android:title="FAQ"
+        android:icon="@drawable/privacy"
+        android:id="@+id/faq">
+    </item>
+
+
+</menu>

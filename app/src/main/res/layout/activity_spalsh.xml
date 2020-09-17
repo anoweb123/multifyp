@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/spalshpicc"
+    android:layout_height="match_parent"
+    tools:context=".spalsh">
+
+    <TextView
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:text="Smart Shopping Bot"
+        android:id="@+id/mid"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:textColor="@color/cardview_light_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed">
+    </TextView>
+    <TextView
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:text="Welcome"
+        android:layout_above="@id/mid"
+        android:id="@+id/welcome"
+        android:textAlignment="center"
+        android:layout_marginBottom="32dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/cardview_light_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black">
+
+    </TextView>
+
+    <TextView
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Happy Shopping"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/cont"
+        android:textAlignment="center"
+        android:drawableEnd="@drawable/ic_baseline_arrow_forward_24white"
+        android:drawablePadding="16dp"
+        android:layout_marginBottom="32dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/cardview_light_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif-monospace">
+
+    </TextView>
+    
+<!--    <LinearLayout-->
+<!--        android:weightSum="2"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_weight="0.7"-->
+<!--            android:id="@+id/img"-->
+<!--            android:background="@drawable/splashpicture"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+<!--        <RelativeLayout-->
+<!--            android:layout_weight="1.3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </LinearLayout>-->
+</RelativeLayout>
