@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.checkoutpage">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:background="@drawable/gradient"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/ic_baseline_arrow_back_24white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="22sp"
+                    android:layout_margin="16dp"
+                    android:textAlignment="center"
+                    android:text="Checkout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                app:fabSize="mini"
+                android:id="@+id/info"
+                android:backgroundTint="#fa4248"
+                android:layout_height="wrap_content">
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+                <TextView
+                    android:text="Payment"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+            <View
+                android:background="#fa4248"
+                android:layout_width="60dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp">
+            </View>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    app:fabSize="mini"
+                    android:id="@+id/payment"
+                    android:backgroundTint="#fa4248"
+                    android:layout_height="wrap_content">
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+                <TextView
+                    android:text="Payment"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+            <View
+                android:background="#fa4248"
+                android:layout_width="60dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp">
+            </View>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    app:fabSize="mini"
+                    android:id="@+id/summary"
+                    android:backgroundTint="#fa4248"
+                    android:layout_height="wrap_content">
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <TextView
+                    android:text="Summaray"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_below="@+id/summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

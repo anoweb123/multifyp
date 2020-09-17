@@ -104,7 +104,7 @@ public class cart extends Fragment implements holdercart.ondel{
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         adapter.onclick(this);
-
+        
         if (modelcarts.isEmpty()){
             nullcart productfragment = new nullcart();
             FragmentManager fragmentManagerpro = getParentFragmentManager();
