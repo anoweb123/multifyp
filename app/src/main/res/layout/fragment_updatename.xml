@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment"
     tools:context=".Fragments.updatename">
 
@@ -30,12 +30,22 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/idf"
+        android:layout_above="@id/updatename"
+        android:textSize="22dp"
+        android:layout_margin="32dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:text="Edit your name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-
+    </TextView>
     <EditText
-        android:layout_below="@+id/toolbar"
         android:hint="Enter name to update"
-
+        android:layout_centerInParent="true"
         android:textCursorDrawable="@drawable/cursorcolor"
         android:id="@+id/updatename"
         android:layout_margin="16dp"
@@ -43,12 +53,40 @@
         android:layout_height="wrap_content">
 
     </EditText>
-    <Button
+    <androidx.cardview.widget.CardView
+        android:id="@+id/update"
+        android:layout_below="@id/updatename"
         android:layout_margin="32dp"
-        android:text="Update"
-        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Button>
+        android:layout_height="42dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/buynoepic"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ImageView>
+            <TextView
+                android:text="Update"
+                android:textSize="20dp"
+                android:textColor="@color/cardview_light_background"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
 
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </ProgressBar>
 </RelativeLayout>

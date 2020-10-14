@@ -1,6 +1,8 @@
 package com.ali.anoweb.Fragments;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,22 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ali.anoweb.R;
-import com.ali.anoweb.adaperslider;
-import com.ali.anoweb.holdercategory;
-import com.ali.anoweb.holderclassproducts;
-import com.ali.anoweb.holderproslider;
-import com.ali.anoweb.modelbanner;
-import com.ali.anoweb.modelcateg;
-import com.ali.anoweb.modelproducts;
-import com.ali.anoweb.modelproductslider;
-import com.ali.anoweb.modelslider;
-import com.ali.anoweb.sliderbanneradapter;
+import com.ali.anoweb.holderclasses.adaperslider;
+import com.ali.anoweb.dbhandler;
+import com.ali.anoweb.holderclasses.holdercategory;
+import com.ali.anoweb.holderclasses.holderclassproducts;
+import com.ali.anoweb.holderclasses.holderproslider;
+import com.ali.anoweb.interfacesapi.allproductsapi;
+import com.ali.anoweb.interfacesapi.shopsapi;
+import com.ali.anoweb.Models.modelbanner;
+import com.ali.anoweb.Models.modelcateg;
+import com.ali.anoweb.Models.modelproducts;
+import com.ali.anoweb.Models.modelproductslider;
+import com.ali.anoweb.Models.modelslider;
+import com.ali.anoweb.holderclasses.sliderbanneradapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.chip.Chip;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -37,9 +44,20 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import ru.nikartm.support.ImageBadgeView;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.ali.anoweb.loginpagecustomer.MY_PREFS_NAME;
+
 public class mainDashboardFragment extends Fragment implements holderclassproducts.onproclicklistener,adaperslider.onshopclicklistener,holderproslider.onproclicklistener {
-    ImageView cart;
     ImageView menu;
+    ImageBadgeView cart,notification;
+    ProgressBar load;
 
     String category="";
     BottomNavigationView bottomNavigationView;
@@ -51,6 +69,7 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
     holdercategory holdercategory;
     List<modelcateg> modelcat;
 
+    int count;
     Spinner categories;
 //    EditText searchView;
     RecyclerView recpoduct;
@@ -63,20 +82,55 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
     List<modelproducts> modelpro;
     SliderView sliderView;
 
-
+    Chip chip;
     Boolean isscrolling=false;
-    com.ali.anoweb.sliderbanneradapter sliderbanneradapter;
+    com.ali.anoweb.holderclasses.sliderbanneradapter sliderbanneradapter;
     List<modelbanner> modelsliders;
     int current_items,scrolled_items,total_items;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_main_dashboard, container, false);
 
+        dbhandler dbhandler=new dbhandler(getContext());
+        count=dbhandler.countitems();
+        Toast.makeText(getContext(),String.valueOf(count), Toast.LENGTH_SHORT).show();
+        dbhandler.close();
 
+//        chip=view.findViewById(R.id.chip);
+//
+//        chip.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @SuppressLint("RestrictedApi")
+//            @Override
+//            public void onGlobalLayout() {
+//                BadgeDrawable badgeDrawable = BadgeDrawable.create(getContext());
+//                badgeDrawable.setNumber(4);
+//
+//                BadgeUtils.attachBadgeDrawable(badgeDrawable, chip, null);
+//                chip.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//            }
+//        });
+
+        cart=view.findViewById(R.id.cart);
+        notification=view.findViewById(R.id.notification);
+
+        cart.setBadgeValue(count)
+                .setBadgeOvalAfterFirst(true)
+                .setMaxBadgeValue(999)
+                .setBadgeTextStyle(Typeface.NORMAL)
+                .setShowCounter(true)
+                .setBadgePadding(4);
+        notification.setBadgeValue(27)
+                .setBadgeOvalAfterFirst(true)
+                .setMaxBadgeValue(999)
+                .setBadgeTextStyle(Typeface.NORMAL)
+                .setShowCounter(true)
+                .setBadgePadding(4);
+
+//        WifiManager wm = (WifiManager)getContext().getApplicationContext().getSystemService(WIFI_SERVICE);
+//        String ip = Formatter.formatIpAddress(wm.getDhcpInfo().dns1);
+//        Toast.makeText(getContext(), ip.toString(), Toast.LENGTH_SHORT).show();
 
 //        String head="Explore by categorieslayout";
 //        SpannableString spannableString=new SpannableString(head);
@@ -106,6 +160,8 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
 //        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        categories.setAdapter(adapter1);
 
+        load=view.findViewById(R.id.load);
+        load.setVisibility(View.VISIBLE);
         recsliderpro=view.findViewById(R.id.recpro);
         list=new ArrayList<>();
 
@@ -133,25 +189,7 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
         });
         recyclerView=view.findViewById(R.id.rec);
 //slider
-        models = new ArrayList<>();
-        models.add(new modelslider(R.drawable.shopp, "stylonickienickienickie"));
-        models.add(new modelslider(R.drawable.shopp, "nickie"));
-        models.add(new modelslider(R.drawable.shopp, "khadii"));
-        models.add(new modelslider(R.drawable.shopp, "shop"));
-
-        adapter = new adaperslider(models, getContext());
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
-        adapter.notifyDataSetChanged();
-        adapter.setonshopclicklistener(mainDashboardFragment.this);
+        shopsapi();
 
 //categriesondashboard
         modelcat = new ArrayList<>();
@@ -168,61 +206,70 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
         recyclerViewcat.setAdapter(holdercategory);
         holdercategory.notifyDataSetChanged();
 
+        SharedPreferences prefs = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+
 //productsondashboard
         modelpro = new ArrayList<>();
-        modelpro.add(new modelproducts("Brochurenickienickienickie","1999",R.drawable.shirt,"200"));
-        modelpro.add(new modelproducts("loren ipsum","2000",R.drawable.jacket,"2200"));
-        modelpro.add(new modelproducts("loren ipsum","500",R.drawable.shirt,"2200"));
-        modelpro.add(new modelproducts("loren ipsum","700",R.drawable.jacket,"2200"));
-//        modelpro.add(new modelproducts("loren ipsum","Rs 1000",R.drawable.shirt,"Rs 2200"));
-//        modelpro.add(new modelproducts("loren ipsum","Rs 3000",R.drawable.jacket,"Rs 2200"));
-//        modelpro.add(new modelproducts("loren ipsum","Rs 200",R.drawable.shirt,"Rs 2200"));
-//        modelpro.add(new modelproducts("loren ipsum","Rs 200",R.drawable.jacket,"Rs 2200"));
-//        modelpro.add(new modelproducts("loren ipsum","Rs 3000",R.drawable.jacket,"Rs 2200"));
-//        modelpro.add(new modelproducts("loren ipsum","Rs 200",R.drawable.shirt,"Rs 2200"));
-//        modelpro.add(new modelproducts("loren ipsum","Rs 200",R.drawable.jacket,"Rs 2200"));
+        Retrofit retrofitpro = new Retrofit.Builder()
+                .baseUrl("http://"+prefs.getString("ipv4","10.0.2.2")+":5000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        allproductsapi apipro=retrofitpro.create(allproductsapi.class);
+        Call<List<modelproducts>> listCallpro=apipro.listCall();
 
-        recpoduct.setHasFixedSize(true);
-        final LinearLayoutManager manager=new GridLayoutManager(getContext(),2);
-        recpoduct.setLayoutManager(manager);
-        adapterproduct = new holderclassproducts(modelpro, getContext());
-        recpoduct.setAdapter(adapterproduct);
-
-        adapterproduct.notifyDataSetChanged();
-        adapterproduct.setoncartclicklistener(mainDashboardFragment.this);
-
-        recpoduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        listCallpro.enqueue(new Callback<List<modelproducts>>() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isscrolling=true;
-                }
+            public void onResponse(Call<List<modelproducts>> call, Response<List<modelproducts>> response) {
+                modelpro=response.body();
+                recpoduct.setHasFixedSize(true);
+                final LinearLayoutManager manager=new GridLayoutManager(getContext(),2);
+                recpoduct.setLayoutManager(manager);
+                adapterproduct = new holderclassproducts(modelpro, getContext());
+                recpoduct.setAdapter(adapterproduct);
+
+                adapterproduct.notifyDataSetChanged();
+                adapterproduct.setoncartclicklistener(mainDashboardFragment.this);
+
             }
+
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                current_items=manager.getChildCount();
-                scrolled_items=manager.findFirstVisibleItemPosition();
-                total_items=manager.getItemCount();
-                if ((current_items+scrolled_items==total_items)){
-                    modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.about,"2200"));
-                    modelpro.add(new modelproducts("loren ipsum","3000",R.drawable.banner,"2200"));
-                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.color,"2200"));
-                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.shop,"2200"));
-                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.color,"2200"));
-                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.color,"2200"));
-//                    adapterproduct.notifyDataSetChanged();
-                }
+            public void onFailure(Call<List<modelproducts>> call, Throwable t) {
+
             }
         });
+
+//        recpoduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                if (newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+//                    isscrolling=true;
+//                }
+//            }
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                current_items=manager.getChildCount();
+//                scrolled_items=manager.findFirstVisibleItemPosition();
+//                total_items=manager.getItemCount();
+//                if ((current_items+scrolled_items==total_items)){
+//                    modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.about,"2000"));
+//                    modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.banner,"2000"));
+//                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.color,"1000"));
+//                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.shop,"1000"));
+//                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.color,"1000"));
+//                    modelpro.add(new modelproducts("loren ipsum","200",R.drawable.color,"1000"));
+//                    adapterproduct.notifyDataSetChanged();
+//                }
+//            }
+//        });
 //productsondashboardslider
-        list.add(new modelproductslider(R.drawable.shirt,"Brochur","1999","2000"));
-        list.add(new modelproductslider(R.drawable.shirt,"Brochur","1999","2000"));
-        list.add(new modelproductslider(R.drawable.shirt,"nickie","1999","2000"));
-        list.add(new modelproductslider(R.drawable.shirt,"nickie","1999","2000"));
-        list.add(new modelproductslider(R.drawable.shirt,"Brochurenickienickienickie","1999","2000"));
-        list.add(new modelproductslider(R.drawable.shirt,"Brochur","1999","2000"));
+        list.add(new modelproductslider(R.drawable.shirt,"Brochur","1500","2000"));
+        list.add(new modelproductslider(R.drawable.shirt,"Brochur","1500","2000"));
+        list.add(new modelproductslider(R.drawable.shirt,"nickie","1500","2000"));
+        list.add(new modelproductslider(R.drawable.shirt,"nickie","1500","2000"));
+        list.add(new modelproductslider(R.drawable.shirt,"Brochurenickienickienickie","1500","2000"));
+        list.add(new modelproductslider(R.drawable.shirt,"Brochur","1500","2000"));
 
         recsliderpro.setHasFixedSize(true);
         recsliderpro.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
@@ -256,17 +303,22 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
         sliderView.startAutoCycle();
         return view;
     }
+
     @Override
-    public void onshopqclick() {
+    public void onshopqclick(String id,String name,String cat) {
         shop shop = new shop();
         FragmentManager fragmentManagerpro = getParentFragmentManager();
         FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
-        fragmentTransactionpro.replace(R.id.fragment, shop);
+        Bundle bundle=new Bundle();
+        bundle.putString("shopid",id);
+        bundle.putString("shopname",name);
+        bundle.putString("shopcat",cat);
+        shop.setArguments(bundle);
+        fragmentTransactionpro.replace(R.id.fragment,shop);
         fragmentTransactionpro.commit();
     }
     @Override
-    public void onproclick(String title, String desc, String price, String discounted, int image, String color, String size, String days, String qtyleft) {
-
+    public void onproclick(String title, String desc, String price, String discounted, String image, String color, String size, String days, String qtyleft) {
         productfragment productfragment = new productfragment();
         FragmentManager fragmentManagerpro = getParentFragmentManager();
         FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
@@ -279,13 +331,11 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
         bundle.putString("sizekey",size);
         bundle.putString("dayskey",days);
         bundle.putString("qtyleftkey",qtyleft);
-        bundle.putInt("imagekey",image);
+        bundle.putString("imagekey",image);
         productfragment.setArguments(bundle);
         fragmentTransactionpro.replace(R.id.fragment, productfragment);
         fragmentTransactionpro.commit();
-
     }
-
     @Override
     public void onproclickinslide(String title, String desc, String price, String discounted, int image, String color, String size, String days, String qtyleft) {
         productfragment productfragment = new productfragment();
@@ -304,6 +354,48 @@ public class mainDashboardFragment extends Fragment implements holderclassproduc
         productfragment.setArguments(bundle);
         fragmentTransactionpro.replace(R.id.fragment, productfragment);
         fragmentTransactionpro.commit();
-
     }
+    public void shopsapi() {
+        models = new ArrayList<>();
+        SharedPreferences prefs = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://"+prefs.getString("ipv4","10.0.2.2")+":5000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final shopsapi api=retrofit.create(shopsapi.class);
+        Call<List<modelslider>> listCall=api.list();
+
+        listCall.enqueue(new Callback<List<modelslider>>() {
+            @Override
+            public void onResponse(Call<List<modelslider>> call, Response<List<modelslider>> response) {
+                if (response.isSuccessful()){
+                    models=response.body();
+                    adapter = new adaperslider(models, getContext());
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    adapter.setonshopclicklistener(mainDashboardFragment.this);
+                    load.setVisibility(View.INVISIBLE);
+                    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                            super.onScrollStateChanged(recyclerView, newState);
+                        }
+                        @Override
+                        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                            super.onScrolled(recyclerView, dx, dy);
+                        }
+                    });
+
+                }
+            }
+            @Override
+            public void onFailure(Call<List<modelslider>> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+//                shopsapi();
+            }
+        });
+    }
+
 }

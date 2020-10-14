@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/creditt"
+    android:orientation="vertical"
+    tools:context=".creditcardprice">
+    <EditText
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="12dp"
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:layout_margin="8dp"
+        android:hint="Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+    <EditText
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:layout_margin="8dp"
+        android:inputType="number"
+        android:drawableLeft="@drawable/ic_baseline_local_atmprice_24"
+        android:drawablePadding="12dp"
+        android:hint="Amount to pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+    <com.wednesday.creditcardedittext.CreditCardEditText
+        android:layout_margin="8dp"
+        android:hint="0000-1111-2222-3333"
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:id="@+id/creditcardnum"
+        android:drawableLeft="@drawable/credit_card"
+        android:drawablePadding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.wednesday.creditcardedittext.CreditCardEditText>
+    <EditText
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:layout_margin="8dp"
+        android:hint="Phone No"
+        android:drawablePadding="12dp"
+        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+</LinearLayout>

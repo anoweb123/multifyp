@@ -2,7 +2,21 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="100dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="#f05b61"
+            android:layout_width="wrap_content"
+            android:text="Reorder"
+            android:layout_margin="16dp"
+            android:textColor="@color/cardview_light_background"
+            android:layout_height="wrap_content">
+
+        </Button>
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -64,4 +78,5 @@
 
     </View>
 </LinearLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

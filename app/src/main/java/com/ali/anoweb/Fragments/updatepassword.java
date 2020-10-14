@@ -1,14 +1,34 @@
 package com.ali.anoweb.Fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.ali.anoweb.R;
+import com.ali.anoweb.interfacesapi.updatepasswordapi;
+import com.ali.anoweb.interfacesapi.updatephoneapi;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.ali.anoweb.loginpagecustomer.MY_PREFS_NAME;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +43,11 @@ public class updatepassword extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    CardView update;
+    EditText prepass,newpass,conpass;
+    ProgressBar bar;
+    String sid,sprepass;
+    ImageView back;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -62,6 +87,92 @@ public class updatepassword extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_updatepassword, container, false);
+        View view= inflater.inflate(R.layout.fragment_updatepassword, container, false);
+        prepass=view.findViewById(R.id.curpass);
+        newpass=view.findViewById(R.id.newpass);
+        conpass=view.findViewById(R.id.confirmpass);
+        update=view.findViewById(R.id.update);
+        bar=view.findViewById(R.id.progress);
+
+        back=view.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profilecustomer productfragment = new profilecustomer();
+                FragmentManager fragmentManagerpro = getParentFragmentManager();
+                FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
+                fragmentTransactionpro.replace(R.id.fragment, productfragment);
+                fragmentTransactionpro.commit();
+
+            }
+        });
+
+
+        bar.setVisibility(View.GONE);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (prepass.getText().toString().isEmpty()) {
+                    prepass.setError("Enter Current Password");
+                }
+
+                if (conpass.getText().toString().isEmpty()) {
+                    conpass.setError("Enter new password again");
+                }
+                if (newpass.getText().toString().isEmpty()) {
+                    newpass.setError("Enter new password");
+                }
+                if (conpass.getText().toString().isEmpty() || newpass.getText().toString().isEmpty() || prepass.getText().toString().isEmpty()){}
+                else {
+                    bar.setVisibility(View.VISIBLE);
+
+                    SharedPreferences prefs = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+                    sid = prefs.getString("customerid", "Null");
+                    sprepass = prefs.getString("password", "Null");
+
+                    if (prepass.getText().toString().equals(sprepass) && newpass.getText().toString().equals(conpass.getText().toString())){
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("http://"+prefs.getString("ipv4","10.0.2.2")+":5000/customer/updateprofile/")
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        updatepasswordapi api = retrofit.create(updatepasswordapi.class);
+                        Call<ResponseBody> listCall = api.updatepassword(sid, newpass.getText().toString());
+                        listCall.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Password updated", Toast.LENGTH_SHORT).show();
+
+                                    SharedPreferences.Editor editor = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                    editor.putString("password", newpass.getText().toString());
+                                    editor.apply();
+
+                                    prepass.setText("");
+                                    conpass.setText("");
+                                    newpass.setText("");
+
+                                    bar.setVisibility(View.INVISIBLE);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });}
+                    else {
+                        bar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(getContext(), "Wrong password", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            }
+        });
+
+
+        return view;
     }
 }

@@ -4,20 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -25,17 +17,18 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ali.anoweb.Fragments.mainDashboardFragment;
-import com.ali.anoweb.Fragments.productfragment;
+import com.ali.anoweb.Fragments.morefragment;
 import com.ali.anoweb.Fragments.profilecustomer;
 import com.ali.anoweb.Fragments.searchfragment;
 import com.ali.anoweb.Fragments.wishlist;
+import com.ali.anoweb.Models.modelbanner;
+import com.ali.anoweb.Models.modelproducts;
+import com.ali.anoweb.Models.modelslider;
+import com.ali.anoweb.holderclasses.adaperslider;
+import com.ali.anoweb.holderclasses.holderclassproducts;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.mongodb.App;
@@ -45,6 +38,7 @@ public class dashboardcustomer extends AppCompatActivity{
     ImageView cart;
     ActionBarDrawerToggle actionBarDrawerToggle;
     Button button;
+    String status;
     ImageView menu;
     BottomNavigationView bottomNavigationView;
     RecyclerView recyclerView;
@@ -58,22 +52,26 @@ public class dashboardcustomer extends AppCompatActivity{
     List<modelproducts> modelpro;
 
     SliderView sliderView;
-    sliderbanneradapter sliderbanneradapter;
+    com.ali.anoweb.holderclasses.sliderbanneradapter sliderbanneradapter;
     List<modelbanner> modelsliders;
+
+
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
 
-        if (count==1){
-            mainDashboardFragment mainDashboardFragment = new mainDashboardFragment();
-            FragmentManager fragmentManagers = getSupportFragmentManager();
-            FragmentTransaction fragmentTransactions = fragmentManagers.beginTransaction();
-            fragmentTransactions.add(R.id.fragment, mainDashboardFragment);
-            fragmentTransactions.commit();
-        }
 
 
+//        if (count==1){
+//            mainDashboardFragment mainDashboardFragment = new mainDashboardFragment();
+//            FragmentManager fragmentManagers = getSupportFragmentManager();
+//            FragmentTransaction fragmentTransactions = fragmentManagers.beginTransaction();
+//            fragmentTransactions.add(R.id.fragment, mainDashboardFragment);
+//            fragmentTransactions.commit();
+//        }
+
+        finishAffinity();
 
     }
 
@@ -93,6 +91,10 @@ public class dashboardcustomer extends AppCompatActivity{
 
 // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+
+
+
+
 
 
         bottomNavigationView=findViewById(R.id.botnav);

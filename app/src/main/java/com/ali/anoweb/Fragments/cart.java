@@ -1,26 +1,27 @@
 package com.ali.anoweb.Fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ali.anoweb.R;
-import com.ali.anoweb.adaperslider;
 import com.ali.anoweb.dbhandler;
-import com.ali.anoweb.holdercart;
-import com.ali.anoweb.modelcart;
-import com.ali.anoweb.modelslider;
+import com.ali.anoweb.holderclasses.holdercart;
+import com.ali.anoweb.Models.modelcart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,11 @@ import java.util.List;
  */
 public class cart extends Fragment implements holdercart.ondel{
 
+    Button checkout;
     RecyclerView recyclerView;
     List<modelcart> modelcarts;
     holdercart adapter;
-    TextView totalprice,totalpayable,payable;
+    TextView totalprice,totalpayable,totaldiscount,payable;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,8 +81,22 @@ public class cart extends Fragment implements holdercart.ondel{
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_cart, container, false);
 
+        checkout=view.findViewById(R.id.checkout);
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkoutpage productfragment = new checkoutpage();
+                FragmentManager fragmentManagerpro = getParentFragmentManager();
+                FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
+                fragmentTransactionpro.replace(R.id.fragment, productfragment);
+                fragmentTransactionpro.commit();
+            }
+        });
+
         recyclerView=view.findViewById(R.id.rec);
         totalprice=view.findViewById(R.id.totalprice);
+        totaldiscount=view.findViewById(R.id.totaldiscount);
         totalpayable=view.findViewById(R.id.totalpayable);
         payable=view.findViewById(R.id.payable);
 
@@ -92,11 +108,12 @@ public class cart extends Fragment implements holdercart.ondel{
 
         dbhandler dbhandler1=new dbhandler(getContext());
         int tprice=dbhandler1.totalprice();
-        totalprice.setText("Rs "+String.valueOf(tprice));
+        totalprice.setText("Rs. "+String.valueOf(tprice));
+//        totaldiscount.setText("Rs. "+String.valueOf(dbhandler1.totaldiscount()));
         dbhandler1.close();
 
-        totalpayable.setText("Rs "+String.valueOf(tprice+200));
-        payable.setText(String.valueOf(tprice+200));
+        totalpayable.setText("Rs. "+String.valueOf(tprice+200));
+        payable.setText("Rs. "+String.valueOf(tprice+200));
 
         adapter = new holdercart(modelcarts, getContext());
         recyclerView.setHasFixedSize(true);
@@ -104,7 +121,7 @@ public class cart extends Fragment implements holdercart.ondel{
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         adapter.onclick(this);
-        
+
         if (modelcarts.isEmpty()){
             nullcart productfragment = new nullcart();
             FragmentManager fragmentManagerpro = getParentFragmentManager();
@@ -112,6 +129,25 @@ public class cart extends Fragment implements holdercart.ondel{
             fragmentTransactionpro.replace(R.id.fragment, productfragment);
             fragmentTransactionpro.commit();
         }
+
+
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(payable, "alpha", .7f, .2f);
+        fadeOut.setDuration(1000);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(payable, "alpha", .2f, .7f);
+        fadeIn.setDuration(1000);
+
+        final AnimatorSet mAnimationSet = new AnimatorSet();
+        mAnimationSet.play(fadeIn).after(fadeOut);
+        mAnimationSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mAnimationSet.start();
+            }
+        });
+
+        mAnimationSet.start();
+
 
 //        ItemTouchHelper itemTouchHelper = new
 //                ItemTouchHelper(new Swipetodeletecallback(adapter,getContext()));
@@ -132,11 +168,12 @@ public class cart extends Fragment implements holdercart.ondel{
             adapter.notifyDataSetChanged();
             adapter.onclick(this);
             int tprice=dbhandler.totalprice();
-            totalprice.setText("Rs "+String.valueOf(tprice));
+            totalprice.setText("Rs. "+String.valueOf(tprice));
+//            totaldiscount.setText("Rs. "+String.valueOf(dbhandler.totaldiscount()));
             dbhandler.close();
 
-            totalpayable.setText("Rs "+String.valueOf(tprice+200));
-            payable.setText(String.valueOf(tprice+200));
+            totalpayable.setText("Rs. "+String.valueOf(tprice+200));
+            payable.setText("Rs. "+String.valueOf(tprice+200));
             if (modelcarts.isEmpty() && recyclerView.getChildCount()==0){
                 nullcart productfragment = new nullcart();
                 FragmentManager fragmentManagerpro = getParentFragmentManager();
@@ -162,11 +199,11 @@ public class cart extends Fragment implements holdercart.ondel{
             adapter.notifyDataSetChanged();
             adapter.onclick(this);
             int tprice=dbhandler.totalprice();
-            totalprice.setText("Rs "+String.valueOf(tprice));
+            totalprice.setText("Rs. "+String.valueOf(tprice));
+//            totaldiscount.setText("Rs. "+String.valueOf(dbhandler.totaldiscount()));
             dbhandler.close();
-
-            totalpayable.setText("Rs "+String.valueOf(tprice+200));
-            payable.setText(String.valueOf(tprice+200));
+            totalpayable.setText("Rs. "+String.valueOf(tprice+200));
+            payable.setText("Rs. "+String.valueOf(tprice+200));
             if (modelcarts.isEmpty() && recyclerView.getChildCount()==0){
                 nullcart productfragment = new nullcart();
                 FragmentManager fragmentManagerpro = getParentFragmentManager();

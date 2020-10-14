@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".loginpagecustomer">
 
+
+
     <LinearLayout
         android:orientation="vertical"
         android:weightSum="2"
@@ -36,6 +38,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ProgressBar
+                    android:id="@+id/bar"
+                    android:layout_above="@id/signups"
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content">
+
+                </ProgressBar>
+
                 <LinearLayout
                     android:id="@+id/signups"
                     android:gravity="center"
@@ -44,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
-                    android:text="Dont have an Account?"
+                    android:text="Don't have an Account?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
@@ -63,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textColor="#9A9A9A"
+                        android:textColor="#8f8f8f"
                         android:layout_centerHorizontal="true"
                         android:text="Forgot Password?"
                         android:layout_margin="16dp"
@@ -100,13 +112,23 @@
                 android:layout_height="wrap_content">
             </TextView>
 
+<!--            <View-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:layout_marginRight="16dp"-->
+<!--                android:layout_marginBottom="6dp"-->
+<!--                android:background="#9A9A9A"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp">-->
+<!--                -->
+<!--            </View>-->
+
             <TextView
                 android:text="Sign up to get start and experience great shopping deals and food"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textSize="16sp"
                 android:layout_marginRight="40sp"
                 android:layout_marginLeft="40sp"
-                android:textColor="#D1D1D1"
+                android:textColor="#8f8f8f"
                 android:layout_centerInParent="true"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
@@ -159,16 +181,45 @@
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                app:cornerRadius="32dp"
-                android:text="Login"
-                android:id="@+id/login"
-                android:backgroundTint="#fa4248"
-                android:layout_margin="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
+<!--            <Button-->
+<!--                app:cornerRadius="32dp"-->
+<!--                android:text="Login"-->
+<!--                android:id="@+id/login"-->
+<!--                android:backgroundTint="#fa4248"-->
+<!--                android:layout_margin="16dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp">-->
 
-            </Button>
+<!--            </Button>-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/login"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="22dp"
+                app:cardCornerRadius="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/gradientpink"
+                        android:scaleType="fitXY"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </ImageView>
+                    <TextView
+                        android:text="Login"
+                        android:textSize="20dp"
+                        android:textColor="@color/cardview_light_background"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

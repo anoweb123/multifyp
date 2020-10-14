@@ -1,38 +1,63 @@
 package com.ali.anoweb.Fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ali.anoweb.R;
-import com.ali.anoweb.holderclassproducts;
-import com.ali.anoweb.modelproducts;
+import com.ali.anoweb.holderclasses.holdercategoryinshop;
+import com.ali.anoweb.holderclasses.holderproductbyshop;
+import com.ali.anoweb.interfacesapi.categoryinshopapi;
+import com.ali.anoweb.interfacesapi.productsbycatinshopapi;
+import com.ali.anoweb.Models.modelcategoryinshop;
+import com.ali.anoweb.Models.modelproductbyshop;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.ali.anoweb.loginpagecustomer.MY_PREFS_NAME;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link shop#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class shop extends Fragment implements holderclassproducts.onproclicklistener {
+public class shop extends Fragment implements holderproductbyshop.onproinshopclicklistener,holdercategoryinshop.oncatinshopclicklistener  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    holderclassproducts adapterproduct;
-    List<modelproducts> modelpro;
+    holderproductbyshop adapterproduct;
+    ImageView back;
+    String idd,namee,catt;
+    TextView catname,cat,name;
+    holdercategoryinshop adaptershop;
+    List<modelproductbyshop> modelpro;
+    List<modelcategoryinshop> modellist;
+    RecyclerView recyclercat;
+
 
     RecyclerView recyclerView;
     // TODO: Rename and change types of parameters
@@ -60,7 +85,6 @@ public class shop extends Fragment implements holderclassproducts.onproclicklist
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,38 +93,108 @@ public class shop extends Fragment implements holderclassproducts.onproclicklist
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_shop, container, false);
-        recyclerView=view.findViewById(R.id.recshop);
+        View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        recyclerView = view.findViewById(R.id.recshop);
+        recyclercat = view.findViewById(R.id.reccatinshop);
+        catname = view.findViewById(R.id.catname);
 
+        back = view.findViewById(R.id.back);
+        name = view.findViewById(R.id.name);
+        cat = view.findViewById(R.id.cat);
         modelpro = new ArrayList<>();
-        modelpro.add(new modelproducts("Brochur","1999",R.drawable.shirt,"2200"));
-        modelpro.add(new modelproducts("loren ipsum","2000",R.drawable.jacket,"2200"));
-        modelpro.add(new modelproducts("Brochur","1999",R.drawable.shirt,"2200"));
-        modelpro.add(new modelproducts("loren ipsum","2000",R.drawable.jacket,"2200"));
-        modelpro.add(new modelproducts("Brochur","1999",R.drawable.shirt,"2200"));
-        modelpro.add(new modelproducts("loren ipsum","2000",R.drawable.jacket,"2200"));
-        modelpro.add(new modelproducts("Brochur","1999",R.drawable.shirt,"2200"));
-        modelpro.add(new modelproducts("loren ipsum","2000",R.drawable.jacket,"2200"));
-        modelpro.add(new modelproducts("Brochur","1999",R.drawable.shirt,"2200"));
-        modelpro.add(new modelproducts("loren ipsum","2000",R.drawable.jacket,"2200"));
+        modellist = new ArrayList<>();
+//
+        idd=getArguments().getString("shopid");
+        namee=getArguments().getString("shopname");
+        catt=getArguments().getString("shopcat");
 
-        adapterproduct = new holderclassproducts(modelpro, getContext());
+        cat.setText(catt);
+        name.setText(namee);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-        recyclerView.setAdapter(adapterproduct);
-        adapterproduct.notifyDataSetChanged();
-        adapterproduct.setoncartclicklistener(this);
+//        Retrofit retrofitpro = new Retrofit.Builder()
+//                .baseUrl("http://192.168.43.19:5000/products/allproducts/"+idd+"/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        productsbyshop apipro = retrofitpro.create(productsbyshop.class);
+//        Call<List<modelproductbyshop>> listCallpro = apipro.list();
+
+
+//        modelpro.add(new modelproducts("Brochur","1000",R.drawable.shirt,"2000"));
+//        modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.jacket,"2000"));
+//        modelpro.add(new modelproducts("Brochur","1000",R.drawable.shirt,"2000"));
+//        modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.jacket,"2000"));
+//        modelpro.add(new modelproducts("Brochur","1000",R.drawable.shirt,"2000"));
+//        modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.jacket,"2000"));
+//        modelpro.add(new modelproducts("Brochur","1000",R.drawable.shirt,"2000"));
+//        modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.jacket,"2000"));
+//        modelpro.add(new modelproducts("Brochur","1000",R.drawable.shirt,"2000"));
+//        modelpro.add(new modelproducts("loren ipsum","1000",R.drawable.jacket,"2000"));
+
+//        listCallpro.enqueue(new Callback<List<modelproductbyshop>>() {
+//            @Override
+//            public void onResponse(Call<List<modelproductbyshop>> call, Response<List<modelproductbyshop>> response) {
+//                modelpro = response.body();
+//                adapterproduct = new holderproductbyshop(modelpro, getContext());
+//                recyclerView.setHasFixedSize(true);
+//                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+//                recyclerView.setAdapter(adapterproduct);
+//                adapterproduct.notifyDataSetChanged();
+//                adapterproduct.setonproinshopclicklistener(shop.this);
+//            }
+//            @Override
+//            public void onFailure(Call<List<modelproductbyshop>> call, Throwable t) {
+//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+
+
+        SharedPreferences prefs = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+
+        Retrofit retrofitcat = new Retrofit.Builder()
+                .baseUrl("http://"+prefs.getString("ipv4","10.0.2.2")+":5000/categories/"+idd+"/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        
+        categoryinshopapi apicat = retrofitcat.create(categoryinshopapi.class);
+        Call<List<modelcategoryinshop>> listCall = apicat.list();
+
+
+        listCall.enqueue(new Callback<List<modelcategoryinshop>>() {
+            @Override
+            public void onResponse(Call<List<modelcategoryinshop>> call, Response<List<modelcategoryinshop>> response) {
+                if (response.isSuccessful()) {
+                    modellist = response.body();
+                    adaptershop = new holdercategoryinshop(modellist,getContext());
+                    recyclercat.setHasFixedSize(true);
+                    recyclercat.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+                    recyclercat.setAdapter(adaptershop);
+                    adaptershop.notifyDataSetChanged();
+                    adaptershop.setonshopclicklistener(shop.this);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<modelcategoryinshop>> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+        SharedPreferences.Editor editor = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("colorposition",0);
+        editor.apply();
+
+
         return view;
     }
 
     @Override
-    public void onproclick(String title, String desc, String price, String discounted, int image, String color, String size, String days, String qtyleft) {
+    public void onproclick(String proid,String title, String desc, String price, String discounted, String image, String color, String size, String days, String qtyleft) {
         productfragment productfragment = new productfragment();
         FragmentManager fragmentManagerpro = getParentFragmentManager();
         FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
@@ -113,10 +207,49 @@ public class shop extends Fragment implements holderclassproducts.onproclicklist
         bundle.putString("sizekey",size);
         bundle.putString("dayskey",days);
         bundle.putString("qtyleftkey",qtyleft);
-        bundle.putInt("imagekey",image);
+        bundle.putString("proid",proid);
+        bundle.putString("imagekey",image);
         productfragment.setArguments(bundle);
         fragmentTransactionpro.replace(R.id.fragment, productfragment);
         fragmentTransactionpro.commit();
+    }
+
+    @Override
+    public void onshopqclick(String id, String name, final String offrate) {
+        catname.setText(name);
+
+        SharedPreferences prefs = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+
+        Retrofit retrofitcatinshop = new Retrofit.Builder()
+                .baseUrl("http://"+prefs.getString("ipv4","10.0.2.2")+":5000/products/productbycat/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        productsbycatinshopapi api=retrofitcatinshop.create(productsbycatinshopapi.class);
+        Call<List<modelproductbyshop>> listCall = api.response(idd,name);
+
+        listCall.enqueue(new Callback<List<modelproductbyshop>>() {
+            @Override
+            public void onResponse(Call<List<modelproductbyshop>> call, Response<List<modelproductbyshop>> response) {
+                modelpro=response.body();
+                if (modelpro.isEmpty()){
+                    Toast.makeText(getContext(), "No products", Toast.LENGTH_SHORT).show();
+                }
+                adapterproduct = new holderproductbyshop(modelpro, getContext(),offrate);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                recyclerView.setAdapter(adapterproduct);
+                adapterproduct.notifyDataSetChanged();
+                adapterproduct.setonproinshopclicklistener(shop.this);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<modelproductbyshop>> call, Throwable t) {
+
+            }
+        });
+
 
     }
 }

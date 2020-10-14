@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.productfragment">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment"
@@ -17,39 +21,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/menu"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="12dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_arrow_back_24white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </ImageView>
-            <ImageView
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="20sp"
-                android:layout_alignParentRight="true"
+
+
+            <ru.nikartm.support.ImageBadgeView
                 android:id="@+id/cart"
-                android:src="@drawable/ic_baseline_shopping_cart_24"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                app:ibv_badgePosition="top_right"
+                android:padding="10dp"
+                android:layout_marginRight="24dp"
+                app:ibv_badgeValue="100"
+                android:textAlignment="center"
+                app:ibv_badgeTextSize="10sp"
+                app:ibv_fixedBadgeRadius="10dp"
+                app:ibv_badgeTextStyle="bold"
+                app:ibv_badgeTextColor="#ffffff"
+                app:ibv_badgeColor="#00ACC1"
+                app:ibv_badgeLimitValue="false"
+                android:src="@drawable/ic_baseline_shopping_cartwhite_24">
+
+            </ru.nikartm.support.ImageBadgeView>
+
+
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_margin="8dp"
-        android:id="@+id/img"
-        android:scaleType="fitXY"
-        android:src="@drawable/jacket"
-        app:cornerRadius="20dp">
-    </ImageView>
+        android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:id="@+id/img"
+                android:scaleType="fitXY"
+                android:src="@drawable/jacket"
+                app:cornerRadius="20dp">
+            </ImageView>
+
+        </RelativeLayout>
+
+<View
+    android:background="#f8f4f3"
+    android:layout_width="match_parent"
+    android:layout_height="10dp">
+
+</View>
             <TextView
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="16dp"
@@ -100,42 +137,60 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </TextView>
-"
+    <View
+        android:background="#f8f4f3"
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="10dp">
 
-            <TextView
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="16dp"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:text="Description:"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-            <TextView
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="32dp"
-                android:id="@+id/desc"
-                android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
+    </View>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:text="Description:"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/desc"
+            android:layout_marginLeft="8dp"
+            android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+    </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
     <TextView
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginLeft="16dp"
                 android:textSize="16sp"
+                android:textStyle="bold"
+
                 android:textColor="#000000"
                 android:text="Color: "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </TextView>
         <TextView
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginLeft="16dp"
             android:textSize="16sp"
             android:id="@+id/color"
@@ -157,6 +212,8 @@
                 android:textSize="16sp"
                 android:textColor="#000000"
                 android:text="Size: "
+
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </TextView>
@@ -205,39 +262,106 @@
                     android:layout_height="wrap_content">
                 </TextView>
             </LinearLayout>
+    <View
+        android:background="#f8f4f3"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="10dp">
 
-            <Button
-                android:textColor="#ffffff"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:text="Buy Now"
-                android:id="@+id/buynow"
-                android:layout_margin="8dp"
+    </View>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buynow"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/buynoepic"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ImageView>
+            <TextView
+                android:text="Buy now"
+                android:textSize="20dp"
+                android:textColor="@color/cardview_light_background"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/addtocart"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="20dp"
+            android:layout_width="160dp"
+            android:layout_height="42dp">
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </Button>
-    <Button
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:textColor="#ffffff"
-        android:textAlignment="center"
-        android:text="Add to Cart"
-        android:id="@+id/addtocart"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </Button>
-    <Button
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:textColor="#ffffff"
-        android:id="@+id/addtowish"
-        android:textAlignment="center"
-        android:text="Add to Wishlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </Button>
+                <ImageView
+                    android:src="@drawable/addtocartpic"
+                    android:scaleType="fitXY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                </ImageView>
+                <TextView
+                    android:text="Add to Cart"
+                    android:textSize="20dp"
+                    android:textColor="@color/cardview_light_background"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/addtowishlist"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="20dp"
+            android:layout_gravity="center"
+            android:layout_width="160dp"
+            android:layout_height="42dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/addtowishlistpic"
+                    android:scaleType="fitXY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                </ImageView>
+                <TextView
+                    android:text="Add to Wishlist"
+                    android:textSize="20dp"
+                    android:textColor="@color/cardview_light_background"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
 <!--    <LinearLayout-->
 <!--                android:weightSum="2"-->
 <!--                android:orientation="horizontal"-->
@@ -246,4 +370,26 @@
 <!--               -->
 <!--            </LinearLayout>-->
         </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+<!--        <RelativeLayout-->
+<!--        android:visibility="invisible"-->
+<!--        android:id="@+id/animate"-->
+<!--        android:background="#38c248"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--            <TextView-->
+<!--                android:text="Adding to cart"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="22sp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:textColor="#ffffff"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
+<!--            </TextView>-->
+
+
+<!--        </RelativeLayout>-->
+
+
+</RelativeLayout>

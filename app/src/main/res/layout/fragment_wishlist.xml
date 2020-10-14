@@ -63,11 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:background="#f8f4f3">
-                </View>
+
                 <TextView
                     android:text="My Wishlist"
                     android:textSize="26dp"
@@ -77,6 +73,12 @@
                     android:layout_height="wrap_content">
 
                 </TextView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="#f8f4f3">
+                </View>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec"
                     android:layout_width="match_parent"

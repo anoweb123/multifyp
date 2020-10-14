@@ -1,22 +1,34 @@
 package com.ali.anoweb.Fragments;
 
+import android.animation.Animator;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.anoweb.R;
 import com.ali.anoweb.dbhandler;
-import com.ali.anoweb.holderclassproducts;
-import com.google.android.material.snackbar.Snackbar;
+import com.dk.animation.circle.CircleAnimationUtil;
+import com.squareup.picasso.Picasso;
+
+import ru.nikartm.support.ImageBadgeView;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.ali.anoweb.loginpagecustomer.MY_PREFS_NAME;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +39,11 @@ public class productfragment extends Fragment {
 
     TextView discountedview,priceview,descview,daysleftview,leftinstockview,colorview,sizeview,titleview;
     ImageView imageView;
-    Button addtocart,buynow,addtowish;
+    CardView addtocart,addtowish;
+
+    ImageBadgeView cart;
+    int count;
+//    Button addtocart,buynow,addtowish;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,6 +52,7 @@ public class productfragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    String title,price,discount,desc,image,leftinstoke,daysleft,color,size,proid;
 
     public productfragment() {
         // Required empty public constructor
@@ -67,13 +84,16 @@ public class productfragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
                 final View view= inflater.inflate(R.layout.fragment_productfragment, container, false);
 
+
                 addtocart=view.findViewById(R.id.addtocart);
-                addtowish=view.findViewById(R.id.addtowish);
+                addtowish=view.findViewById(R.id.addtowishlist);
 
                 discountedview=view.findViewById(R.id.discount);
                 priceview=view.findViewById(R.id.price);
@@ -84,37 +104,95 @@ public class productfragment extends Fragment {
                 sizeview=view.findViewById(R.id.size);
                 leftinstockview=view.findViewById(R.id.leftinstock);
                 imageView=view.findViewById(R.id.img);
+                cart=view.findViewById(R.id.cart);
+
+                SharedPreferences prefs = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
 
 
-                final String title=getArguments().getString("titlekey");
-                final String price=getArguments().getString("pricekey");
-                final String discount=getArguments().getString("discountedkey");
-                final String desc=getArguments().getString("desckey");
-                final int image=getArguments().getInt("imagekey");
-                final String leftinstock=getArguments().getString("qtyleftkey");
-                String daysleft=getArguments().getString("dayskey");
-                final String color=getArguments().getString("colorkey");
-                final String size=getArguments().getString("sizekey");
+                dbhandler dbhandler=new dbhandler(getContext());
+                count=dbhandler.countitems();
+                dbhandler.close();
 
+
+
+        cart.setBadgeValue(count)
+                .setBadgeOvalAfterFirst(true)
+                .setMaxBadgeValue(999)
+                .setBadgeTextStyle(Typeface.NORMAL)
+                .setShowCounter(true);
+
+                title=getArguments().getString("titlekey");
+                price=getArguments().getString("pricekey");
+                discount=getArguments().getString("discountedkey");
+                desc=getArguments().getString("desckey");
+                image=getArguments().getString("imagekey");
+                leftinstoke=getArguments().getString("qtyleftkey");
+                daysleft=getArguments().getString("dayskey");
+                color=getArguments().getString("colorkey");
+                size=getArguments().getString("sizekey");
+                proid=getArguments().getString("proid");
 
                 discountedview.setText("Rs "+discount);
                 discountedview.setPaintFlags(discountedview.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 titleview.setText(title);
                 priceview.setText("Rs "+price);
                 descview.setText(desc);
-                leftinstockview.setText(leftinstock);
+                leftinstockview.setText(leftinstoke);
                 daysleftview.setText(daysleft+" days left at this price");
                 colorview.setText(color);
                 sizeview.setText(size);
-                imageView.setImageResource(image);
+                //top pro idr ki wja sy crash kra ha
+                Picasso.get().load(image.replaceFirst("localhost",prefs.getString("ipv4","10.0.2.2"))).into(imageView);
 
-                addtocart.setOnClickListener(new View.OnClickListener() {
+        addtocart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         dbhandler dbhandler=new dbhandler(getContext());
-                        long a=dbhandler.addtocart(title,image,desc,price,discount,color,size,"1",Integer.valueOf(leftinstock));
+                        String a=dbhandler.addtocart(proid,title,image,desc,price,discount,color,size,"1",Integer.valueOf(leftinstoke));
                         dbhandler.close();
-                        Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
+                        if (a.equals("no")||a=="no"){
+                            Toast.makeText(getContext(), a, Toast.LENGTH_SHORT).show();
+                            cart cart = new cart();
+                            FragmentManager fragmentManagerpro = getParentFragmentManager();
+                            FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
+                            Bundle bundle=new Bundle();
+                            cart.setArguments(bundle);
+                            fragmentTransactionpro.replace(R.id.fragment, cart);
+                            fragmentTransactionpro.commit();
+                            Toast.makeText(getContext(), "Already in cart you can add in quantity", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+
+                            new CircleAnimationUtil().attachActivity(getActivity()).setTargetView(imageView).setMoveDuration(500).setDestView(cart).setAnimationListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                }
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    dbhandler dbhandlers=new dbhandler(getContext());
+                                    count=dbhandlers.countitems();
+                                    dbhandlers.close();
+
+                                    cart.setBadgeValue(count)
+                                            .setBadgeOvalAfterFirst(true)
+                                            .setMaxBadgeValue(999)
+                                            .setBadgeTextStyle(Typeface.NORMAL)
+                                            .setShowCounter(true);
+                                    imageView.setVisibility(View.VISIBLE);
+                                    Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
+
+                                }
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).startAnimation();
+                        }
                     }
                 });
                 addtowish.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +204,6 @@ public class productfragment extends Fragment {
                         Toast.makeText(getContext(), "Added to Wishlist", Toast.LENGTH_SHORT).show();
                     }
                 });
-
         return view;
     }
 }

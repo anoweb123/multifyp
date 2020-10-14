@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:src="@drawable/noimage"
                 android:id="@+id/img"
                 android:scaleType="fitXY"
                 app:cornerRadius="20dp"

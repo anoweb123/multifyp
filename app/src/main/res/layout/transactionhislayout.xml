@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <RelativeLayout
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_margin="8dp"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:id="@+id/name"
+            android:text="Aleena Aamir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:id="@+id/type"
+            android:layout_below="@id/name"
+            android:textColor="#9A9A9A"
+            android:text="Credit card payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:id="@+id/date"
+            android:layout_below="@id/type"
+            android:textColor="#9A9A9A"
+            android:text="Dated:sep-6-2020"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <View
+            android:layout_below="@id/date"
+            android:background="#9a9a9a"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp">
+
+        </View>
+
+        <TextView
+            android:gravity="right"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="#FF0000"
+            android:text="10:2:30"
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:layout_below="@id/time"
+            android:gravity="right"
+            android:layout_margin="16dp"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Rs 1200"
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView >

@@ -3,17 +3,26 @@ package com.ali.anoweb;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ali.anoweb.R;
+import com.google.android.gms.common.internal.service.Common;
+
+import static com.ali.anoweb.loginpagecustomer.MY_PREFS_NAME;
 
 public class spalsh extends AppCompatActivity {
 
     CardView background;
+    ImageView next;
+    int a=0;
+    String status;
     private Handler mWaitHandler = new Handler();
 
     @Override
@@ -21,29 +30,59 @@ public class spalsh extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spalsh);
 
-        View decorView = getWindow().getDecorView();
+        SharedPreferences.Editor editor =getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putString("ipv4","192.168.43.19");
+        editor.apply();
+
+//        status = prefs.getString("loginstatus", "Null");
+//        if (status.equals("true")) {
+//            startActivity(new Intent(spalsh.this, dashboardcustomer.class));
+//        } else {
+            View decorView = getWindow().getDecorView();
 // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
 
-        mWaitHandler.postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                //The following code will execute after the 5 seconds.
-                try {
-                    //Go to next page i.e, start the next activity.
-                    Intent intent = new Intent(getApplicationContext(), splashscreen.class);
-                    startActivity(intent);
-                    //Let's Finish Splash Activity since we don't want to show this when user press back button.
-                    finish();
-                } catch (Exception ignored) {
-                    ignored.printStackTrace();
+            findViewById(R.id.next)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            a = 1;
+                            startActivity(new Intent(spalsh.this, splashscreen.class));
+                            finish();
+
+                        }
+                    });
+            mWaitHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //The following code will execute after the 5 seconds.
+                    try {
+                        if (a == 0) {
+                            //Go to next page i.e, start the next activity.
+                            Intent intent = new Intent(getApplicationContext(), splashscreen.class);
+                            startActivity(intent);
+                        }
+                        //Let's Finish Splash Activity since we don't want to show this when user press back button.
+                        finish();
+                    } catch (Exception ignored) {
+                        ignored.printStackTrace();
+                    }
                 }
-            }
-        }, 5000);  // Give a 5 seconds delay.
+            }, 5000);
+        }
+//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        status = prefs.getString("loginstatus", "Null");
+        if (status.equals("true")) {
+            a=1;
+            startActivity(new Intent(spalsh.this, dashboardcustomer.class));
+        }
+
     }
-
-
-
 }

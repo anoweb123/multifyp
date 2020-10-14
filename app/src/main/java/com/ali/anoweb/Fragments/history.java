@@ -3,18 +3,19 @@ package com.ali.anoweb.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ali.anoweb.R;
-import com.ali.anoweb.holdercompleted;
-import com.ali.anoweb.holderhistory;
-import com.ali.anoweb.modelcompleted;
-import com.ali.anoweb.modelhistory;
+import com.ali.anoweb.holderclasses.holderhistory;
+import com.ali.anoweb.Models.modelhistory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class history extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    ImageView back;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -76,6 +78,19 @@ public class history extends Fragment {
         View view= inflater.inflate(R.layout.fragment_history, container, false);
         recyclerView=view.findViewById(R.id.rec);
 
+
+        back=view.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                morefragment productfragment = new morefragment();
+                FragmentManager fragmentManagerpro = getParentFragmentManager();
+                FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
+                fragmentTransactionpro.replace(R.id.fragment, productfragment);
+                fragmentTransactionpro.commit();
+
+            }
+        });
         list = new ArrayList<>();
         list.add(new modelhistory("On the way","Rs 1999","2 sep,2020"));
         list.add(new modelhistory("On the way","Rs 1999","2 sep,2020"));

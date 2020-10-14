@@ -5,7 +5,6 @@
     app:cardCornerRadius="16dp"
     android:layout_margin="8dp"
     android:layout_height="wrap_content">
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -16,6 +15,7 @@
             android:layout_height="100dp">
         <ImageView
             android:id="@+id/img"
+            android:src="@drawable/noimage"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="100dp">
@@ -29,8 +29,16 @@
             android:layout_margin="4dp"
             android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
-
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:textSize="14dp"
+            android:gravity="center"
+            android:textColor="#8f8f8f"
+            android:text="Category"
+            android:id="@+id/cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         </TextView>
     </LinearLayout>
 

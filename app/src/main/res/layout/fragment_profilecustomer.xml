@@ -8,32 +8,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.profilecustomer">
     <!-- TODO: Update blank fragment layout -->
-        <androidx.appcompat.widget.Toolbar
-            android:background="@drawable/gradient"
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:background="@drawable/gradient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginRight="32dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/menu"
+                android:scaleType="fitXY"
+                android:src="@drawable/unnamedlogo"
+                android:layout_width="50dp"
+                android:layout_height="40dp">
+            </ImageView>
+            <ImageView
+                android:layout_margin="8dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/cart"
+                android:src="@drawable/ic_baseline_shopping_cart_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ImageView>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/bar"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_marginRight="32dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/menu"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/unnamedlogo"
-                    android:layout_width="50dp"
-                    android:layout_height="40dp">
-                </ImageView>
-                <ImageView
-                    android:layout_margin="8dp"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/cart"
-                    android:src="@drawable/ic_baseline_shopping_cart_24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </ImageView>
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+
+        </ProgressBar>
+
 <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -84,8 +100,8 @@
                         app:civ_border_width="2dp">
                     </de.hdodenhof.circleimageview.CircleImageView>
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:layout_width="35sp"
-                        android:layout_height="35sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:fabSize="mini"
                         android:layout_alignTop="@id/imageview_account_profile"
                         android:layout_centerInParent="true"
@@ -104,37 +120,41 @@
                         android:text="Aleena Aamir"
                         android:drawableLeft="@drawable/ic_baseline_person_24"
                         android:textSize="16sp"
+                        android:id="@+id/name"
                         android:drawablePadding="8dp"
                         android:layout_marginTop="50dp"
                         android:textColor="#9A9A9A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </TextView>
+
                     <TextView
-                        android:drawableLeft="@drawable/ic_baseline_email_24"
-                        android:text="Aleenaaamir1@gmail.com"
-                        android:textSize="14sp"
-                        android:drawablePadding="8dp"
-                        android:layout_marginTop="16dp"
-                        android:textColor="#9A9A9A"
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:drawableLeft="@drawable/ic_baseline_email_24"
+                        android:drawablePadding="8dp"
+                        android:text="Aleenaaamir1@gmail.com"
+                        android:textColor="#9A9A9A"
+                        android:textSize="14sp">
                     </TextView>
                     <TextView
                         android:text="03100000000"
                         android:textSize="14sp"
                         android:drawablePadding="8dp"
+                        android:id="@+id/phone"
                         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
                         android:layout_marginTop="16dp"
                         android:textColor="#9A9A9A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </TextView>
-
                     <TextView
                         android:text="block 4 first floor rehman plaza"
                         android:textSize="14sp"
                         android:drawableLeft="@drawable/address24"
+                        android:id="@+id/address"
                         android:layout_marginTop="16dp"
                         android:drawablePadding="8dp"
                         android:textColor="#9A9A9A"
@@ -142,13 +162,12 @@
                         android:layout_height="wrap_content">
                     </TextView>
                 </LinearLayout>
-
             </LinearLayout>
         </RelativeLayout>
         <View
             android:background="#f8f4f3"
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="10dp">
         </View>
         <LinearLayout
             android:layout_gravity="center"
@@ -164,6 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
+
             <TextView
                 android:textSize="20sp"
                 android:text="200"
@@ -176,7 +196,7 @@
         <View
             android:background="#f8f4f3"
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="10dp">
         </View>
         <LinearLayout
             android:weightSum="2"
@@ -252,7 +272,7 @@
                     android:drawableLeft="@drawable/address24"
                     android:drawablePadding="16dp"
                     android:layout_centerVertical="true"
-                    android:id="@+id/address"
+                    android:id="@+id/addressup"
                     android:text="Address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -310,7 +330,7 @@
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_baseline_local_phone_24"
                     android:layout_centerVertical="true"
-                    android:id="@+id/phone"
+                    android:id="@+id/phoneup"
                     android:text="Phone No"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -367,7 +387,7 @@
                     android:drawableLeft="@drawable/ic_baseline_passswor"
                     android:drawablePadding="16dp"
                     android:layout_centerVertical="true"
-                    android:id="@+id/pass"
+                    android:id="@+id/passup"
                     android:text="Password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -424,7 +444,7 @@
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_baseline_email_24"
                     android:layout_centerVertical="true"
-                    android:id="@+id/email"
+                    android:id="@+id/emailup"
                     android:text="Email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -454,4 +474,5 @@
         </View>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 </LinearLayout>

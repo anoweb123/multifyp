@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".wishlistnull">
+
+    <androidx.appcompat.widget.Toolbar
+        android:background="#662e93"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginRight="32dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/menu"
+                android:scaleType="fitXY"
+                android:src="@drawable/unnamedlogo"
+                android:layout_width="50dp"
+                android:layout_height="40dp">
+            </ImageView>
+            <ImageView
+                android:layout_margin="8dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/option"
+                android:src="@drawable/ic_baseline_shopping_cart_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ImageView>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:layout_margin="32dp"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:id="@+id/text"
+        android:text="Wishlist is empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+
+    <Button
+        android:layout_below="@id/text"
+        android:layout_margin="16dp"
+        android:backgroundTint="#fa4248"
+        android:text="Back to shopping"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+</RelativeLayout>

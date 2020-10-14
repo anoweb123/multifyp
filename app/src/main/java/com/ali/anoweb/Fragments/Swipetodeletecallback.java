@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ali.anoweb.R;
-import com.ali.anoweb.holdercart;
+import com.ali.anoweb.holderclasses.holdercart;
 
 public class Swipetodeletecallback extends ItemTouchHelper.SimpleCallback {
     private Drawable icon;

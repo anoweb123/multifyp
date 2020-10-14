@@ -3,18 +3,19 @@ package com.ali.anoweb.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ali.anoweb.R;
-import com.ali.anoweb.holdercompleted;
-import com.ali.anoweb.holderwishlist;
-import com.ali.anoweb.modelcompleted;
-import com.ali.anoweb.modelwishlist;
+import com.ali.anoweb.holderclasses.holdercompleted;
+import com.ali.anoweb.Models.modelcompleted;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class completedorders extends Fragment {
     List<modelcompleted> list;
     holdercompleted adapter;
 
+    ImageView back;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -76,6 +78,19 @@ public class completedorders extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_completedorders, container, false);
 
+
+        back=view.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                morefragment productfragment = new morefragment();
+                FragmentManager fragmentManagerpro = getParentFragmentManager();
+                FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
+                fragmentTransactionpro.replace(R.id.fragment, productfragment);
+                fragmentTransactionpro.commit();
+
+            }
+        });
         recyclerView=view.findViewById(R.id.rec);
 
         list = new ArrayList<>();

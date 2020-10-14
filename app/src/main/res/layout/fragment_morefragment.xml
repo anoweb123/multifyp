@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".morefragment">
+    tools:context=".Fragments.morefragment">
     <androidx.appcompat.widget.Toolbar
         android:background="@drawable/gradient"
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:src="@drawable/unnamedlogo"
                 android:layout_width="50dp"
                 android:layout_height="40dp">
-            </ImageView>
+            </ImageView>upda
             <ImageView
                 android:layout_margin="8dp"
                 android:layout_alignParentRight="true"
@@ -48,33 +48,39 @@
         <RelativeLayout
             android:background="@color/cardview_light_background"
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="200dp">
             <LinearLayout
                 android:weightSum="2"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_weight="1.2"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp">
+                    android:layout_height="200dp">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageview_account_profile"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
+                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="40dp"
                         android:src="@drawable/banner2"
                         app:civ_border_color="#FFFFFF"
                         app:civ_border_width="2dp">
                     </de.hdodenhof.circleimageview.CircleImageView>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_weight="0.9"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp">
+                    android:layout_height="200dp">
+                    <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <TextView
                         android:text="Aleena Aamir"
                         android:drawableLeft="@drawable/ic_baseline_person_24"
@@ -95,33 +101,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </TextView>
-                    <TextView
-                        android:text="0310000000"
-                        android:textSize="14sp"
-                        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
-                        android:layout_marginTop="16dp"
-                        android:drawablePadding="8dp"
-                        android:textColor="#9A9A9A"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                    <TextView
-                        android:text="nazeer block 4 first floor rehman block 4 first floor"
-                        android:textSize="14sp"
-                        android:drawableLeft="@drawable/address24"
-                        android:layout_marginTop="16dp"
-                        android:textColor="#9A9A9A"
-                        android:drawablePadding="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
         <View
             android:background="#f8f4f3"
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="20dp">
         </View>
         <RelativeLayout
             android:layout_marginTop="16dp"
@@ -178,6 +165,7 @@
             android:layout_height="1dp">
         </View>
         <RelativeLayout
+            android:id="@+id/transactionhis"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -193,43 +181,12 @@
             <TextView
                 android:textColor="#000000"
                 android:textSize="16sp"
-                android:id="@+id/transactionhis"
+                android:id="@+id/transaction"
                 android:layout_marginLeft="12dp"
                 android:drawableLeft="@drawable/transactionhis24"
                 android:layout_centerVertical="true"
                 android:drawablePadding="16dp"
                 android:text="Transaction history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView></RelativeLayout>
-        <View
-            android:background="#dae1e6"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp">
-        </View>
-        <RelativeLayout
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:backgroundTint="#D3D3D3"-->
-<!--                android:src="@drawable/notification"-->
-<!--                android:clickable="false"-->
-<!--                app:fabSize="mini"-->
-<!--                android:id="@+id/drawnoti"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content">-->
-<!--            </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
-            <TextView
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:id="@+id/notification"
-                android:drawableLeft="@drawable/notification"
-                android:drawablePadding="16dp"
-                android:layout_marginLeft="12dp"
-                android:layout_centerVertical="true"
-                android:text="Notifications"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </TextView></RelativeLayout>
@@ -277,37 +234,6 @@
             android:layout_height="wrap_content">
 <!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--                android:backgroundTint="#D3D3D3"-->
-<!--                android:src="@drawable/credit_card"-->
-<!--                android:clickable="false"-->
-<!--                app:fabSize="mini"-->
-<!--                android:id="@+id/drawcredit"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content">-->
-<!--            </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
-            <TextView
-                android:textColor="#000000"
-                android:drawableLeft="@drawable/credit_card"
-                android:drawablePadding="16dp"
-                android:textSize="16sp"
-                android:id="@+id/card"
-                android:layout_marginLeft="12dp"
-                android:layout_centerVertical="true"
-                android:text="Credit card payment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView></RelativeLayout>
-        <View
-            android:background="#dae1e6"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp">
-        </View>
-        <RelativeLayout
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:backgroundTint="#D3D3D3"-->
 <!--                android:src="@drawable/track"-->
 <!--                android:clickable="false"-->
 <!--                app:fabSize="mini"-->
@@ -334,6 +260,7 @@
             android:layout_height="20dp">
         </View>
         <RelativeLayout
+            android:id="@+id/logout"
             android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -349,7 +276,6 @@
             <TextView
                 android:textColor="#000000"
                 android:textSize="16sp"
-                android:id="@+id/logout"
                 android:drawablePadding="16dp"
                 android:drawableLeft="@drawable/ic_baseline_not_logout_24"
 

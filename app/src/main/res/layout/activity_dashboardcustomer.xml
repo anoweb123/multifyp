@@ -14,8 +14,9 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
         app:menu="@menu/navmenu"
         android:id="@+id/botnav"
-        app:itemTextColor="#A9A9A9"
-        app:itemIconTint="#A9A9A9"
+        app:itemTextColor="#FFFFFF"
+            android:background="@drawable/gradient"
+        app:itemIconTint="#ffffff"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

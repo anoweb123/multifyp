@@ -3,6 +3,8 @@ package com.ali.anoweb.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,8 +14,9 @@ import android.view.ViewGroup;
 
 import com.ali.anoweb.R;
 import com.ali.anoweb.dbhandler;
-import com.ali.anoweb.holderwishlist;
-import com.ali.anoweb.modelwishlist;
+import com.ali.anoweb.holderclasses.holderwishlist;
+import com.ali.anoweb.Models.modelwishlist;
+import com.ali.anoweb.wishlistnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ import java.util.List;
  * Use the {@link wishlist#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class wishlist extends Fragment {
+public class wishlist extends Fragment implements holderwishlist.ondel{
 
     RecyclerView recyclerView;
     List<modelwishlist> list;
@@ -65,6 +68,40 @@ public class wishlist extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        adapter.onclick(this);
+        if (recyclerView.getChildCount()==0 && list.isEmpty()){
+            wishlistnull productfragment = new wishlistnull();
+            FragmentManager fragmentManagerpro = getParentFragmentManager();
+            FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
+            fragmentTransactionpro.replace(R.id.fragment, productfragment);
+            fragmentTransactionpro.commit();
+        }
         return view;
+    }
+
+    @Override
+    public void onclicker(int position) {
+        dbhandler dbhandler=new dbhandler(getContext());
+        dbhandler.deleteinwish(position);
+        list = new ArrayList<>();
+        list=dbhandler.retrievewishlist();
+        dbhandler.close();
+        adapter = new holderwishlist(list, getContext());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        adapter.onclick(this);
+        if (recyclerView.getChildCount()==0 && list.isEmpty()){
+            wishlistnull productfragment = new wishlistnull();
+            FragmentManager fragmentManagerpro = getParentFragmentManager();
+            FragmentTransaction fragmentTransactionpro = fragmentManagerpro.beginTransaction();
+            fragmentTransactionpro.replace(R.id.fragment, productfragment);
+            fragmentTransactionpro.commit();
+
+
+        }
+
+
     }
 }

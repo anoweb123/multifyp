@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "246056620216",
+    "firebase_url": "https://fyp-project-2f47f.firebaseio.com",
+    "project_id": "fyp-project-2f47f",
+    "storage_bucket": "fyp-project-2f47f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246056620216:android:2537c2943526c748d7244d",
+        "android_client_info": {
+          "package_name": "com.ali.anoweb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246056620216-g1eu0clvharues5n3f7qh154igp4sje0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ali.anoweb",
+            "certificate_hash": "9a64b2d6ca27029d8d6b0bb08b5a26eae5ec5cb0"
+          }
+        },
+        {
+          "client_id": "246056620216-m3aqhie3fesdos6dg944o555hccg8cb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmAWlVIHMo3GFekZgW3BF1HKu2Iu-ao8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246056620216-m3aqhie3fesdos6dg944o555hccg8cb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

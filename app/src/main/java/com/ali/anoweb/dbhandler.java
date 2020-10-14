@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.print.PrinterId;
 
 import androidx.annotation.Nullable;
+
+import com.ali.anoweb.Models.modelcart;
+import com.ali.anoweb.Models.modellastrec;
+import com.ali.anoweb.Models.modelwishlist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,7 @@ public class dbhandler extends SQLiteOpenHelper {
     public static final String Details_COLUMN = "DETAIL";
     public static final String Leftitems_COLUMN= "LEFTS";
     public static final String Image_COLUMN = "IMAGE";
-
+    public static final String Proid_COLUMN = "PROID";
 
     public static final String WISHLISTTABLE_NAME = "WISHLIST_table";
     public static final String WID_COLUMN = "ID";
@@ -49,7 +52,6 @@ public class dbhandler extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         String tableCART = "CREATE TABLE " + CARTTABLE_NAME + " (" +
                 ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 Title_COLUMN + " TEXT, " +
@@ -59,7 +61,8 @@ public class dbhandler extends SQLiteOpenHelper {
                 DISCOUNTED_COLUMN + " TEXT, " +
                 SIZE_COLUMN + " TEXT, " +
                 Price_COLUMN + " TEXT, " +
-                Image_COLUMN + " INTEGER, " +
+                Proid_COLUMN + " TEXT, " +
+                Image_COLUMN + " TEXT, " +
                 Quantity_COLUMN + " TEXT)";
         db.execSQL(tableCART);
 
@@ -71,34 +74,52 @@ public class dbhandler extends SQLiteOpenHelper {
                 WDISCOUNTED_COLUMN + " TEXT, " +
                 WSIZE_COLUMN + " TEXT, " +
                 WPrice_COLUMN + " TEXT, " +
-                WImage_COLUMN + " INTEGER)";
+                WImage_COLUMN + " TEXT)";
         db.execSQL(wishlistCART);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
+    public String addtocart(String proid,String title,String image,String desc,String price,String discounted,String color,String size,String qty,int left){
 
-    public long addtocart(String title,int image,String desc,String price,String discounted,String color,String size,String qty,int left){
-        ContentValues contentValues=new ContentValues();
-        contentValues.put(Title_COLUMN,title);
-        contentValues.put(Image_COLUMN,image);
-        contentValues.put(Desc_COLUMN,desc);
-        contentValues.put(Price_COLUMN,price);
-        contentValues.put(DISCOUNTED_COLUMN,discounted);
-        contentValues.put(COLOR_COLUMN,color);
-        contentValues.put(SIZE_COLUMN,size);
-        contentValues.put(Quantity_COLUMN,qty);
-        contentValues.put(Leftitems_COLUMN,left);
-        return db.insert(CARTTABLE_NAME,null,contentValues);
-    }
+        String response="";
 
-    public List<modelcart> retrievecart(){
-        List<modelcart> s=new ArrayList<>();
-        String colomn[]=new String[]{ID_COLUMN,Title_COLUMN,Price_COLUMN,Desc_COLUMN,DISCOUNTED_COLUMN,COLOR_COLUMN,SIZE_COLUMN,Image_COLUMN,Quantity_COLUMN,Leftitems_COLUMN};
+
+        String colomn[]=new String[]{Proid_COLUMN,ID_COLUMN,Title_COLUMN,Price_COLUMN,Desc_COLUMN,DISCOUNTED_COLUMN,COLOR_COLUMN,SIZE_COLUMN,Image_COLUMN,Quantity_COLUMN,Leftitems_COLUMN};
         Cursor query= db.query(CARTTABLE_NAME,colomn,null,null,null,null,null,null);
         while (query.moveToNext()){
-            String a,b,c,d,e,f,g;
-            int i,h,j;
+            String a;
+            a=query.getString(query.getColumnIndex(Proid_COLUMN));
+            if (a.equals(proid)||proid==a){
+                response= "no";
+            }
+            else {
+
+                ContentValues contentValues=new ContentValues();
+                contentValues.put(Title_COLUMN,title);
+                contentValues.put(Image_COLUMN,image);
+                contentValues.put(Desc_COLUMN,desc);
+                contentValues.put(Price_COLUMN,price);
+                contentValues.put(DISCOUNTED_COLUMN,discounted);
+                contentValues.put(COLOR_COLUMN,color);
+                contentValues.put(SIZE_COLUMN,size);
+                contentValues.put(Quantity_COLUMN,qty);
+                contentValues.put(Leftitems_COLUMN,left);
+                contentValues.put(Proid_COLUMN,proid);
+
+                db.insert(CARTTABLE_NAME,null,contentValues);
+                response="yes";
+            }
+        }
+        return response;
+    }
+    public List<modelcart> retrievecart(){
+        List<modelcart> s=new ArrayList<>();
+        String colomn[]=new String[]{Proid_COLUMN,ID_COLUMN,Title_COLUMN,Price_COLUMN,Desc_COLUMN,DISCOUNTED_COLUMN,COLOR_COLUMN,SIZE_COLUMN,Image_COLUMN,Quantity_COLUMN,Leftitems_COLUMN};
+        Cursor query= db.query(CARTTABLE_NAME,colomn,null,null,null,null,null,null);
+        while (query.moveToNext()){
+            String a,b,c,d,e,f,g,i,k;
+            int h,j;
             a=query.getString(query.getColumnIndex(Title_COLUMN));
             b=query.getString(query.getColumnIndex(Desc_COLUMN));
             c=query.getString(query.getColumnIndex(Price_COLUMN));
@@ -107,18 +128,16 @@ public class dbhandler extends SQLiteOpenHelper {
             f=query.getString(query.getColumnIndex(COLOR_COLUMN));
             g=query.getString(query.getColumnIndex(SIZE_COLUMN));
             h=query.getInt(query.getColumnIndex(ID_COLUMN));
-            i=query.getInt(query.getColumnIndex(Image_COLUMN));
+            i=query.getString(query.getColumnIndex(Image_COLUMN));
             j=query.getInt(query.getColumnIndex(Leftitems_COLUMN));
-
-            s.add(new modelcart(a,c,e,d,g,f,b,i,h,j));
+            k=query.getString(query.getColumnIndex(Proid_COLUMN));
+            s.add(new modelcart(k,a,c,e,d,g,f,b,i,h,j));
         }
         return s;
     }
-
     public long deleteincart(int id){
         return db.delete(CARTTABLE_NAME,ID_COLUMN+ "=?",new String[]{String.valueOf(id)});
     }
-
     public int updateqty(String id, String qty){
         ContentValues cv=new ContentValues();
         cv.put(Quantity_COLUMN,qty);
@@ -133,7 +152,6 @@ public class dbhandler extends SQLiteOpenHelper {
         }
         return a;
     }
-
     public int totalprice(){
         int total=0;
         String colomn[]=new String[]{ID_COLUMN,Title_COLUMN,Price_COLUMN,Desc_COLUMN,DISCOUNTED_COLUMN,COLOR_COLUMN,SIZE_COLUMN,Image_COLUMN,Quantity_COLUMN};
@@ -143,8 +161,27 @@ public class dbhandler extends SQLiteOpenHelper {
         }
         return total;
     }
+    public int countitems(){
+        int total=0;
+        String colomn[]=new String[]{ID_COLUMN,Title_COLUMN,Price_COLUMN,Desc_COLUMN,DISCOUNTED_COLUMN,COLOR_COLUMN,SIZE_COLUMN,Image_COLUMN,Quantity_COLUMN};
+        Cursor query= db.query(CARTTABLE_NAME,colomn,null,null,null,null,null,null);
+        while (query.moveToNext()){
+            total++;
+        }
+        return total;
+    }
 
-    public long addtowishlist(String title,int image,String desc,String price,String discounted,String color,String size){
+
+    public int totaldiscount(){
+        int total=0;
+        String colomn[]=new String[]{ID_COLUMN,Title_COLUMN,Price_COLUMN,Desc_COLUMN,DISCOUNTED_COLUMN,COLOR_COLUMN,SIZE_COLUMN,Image_COLUMN,Quantity_COLUMN};
+        Cursor query= db.query(CARTTABLE_NAME,colomn,null,null,null,null,null,null);
+        while (query.moveToNext()){
+            total=((Integer.parseInt(query.getString(query.getColumnIndex(DISCOUNTED_COLUMN)))-Integer.parseInt(query.getString(query.getColumnIndex(Price_COLUMN))))*Integer.parseInt(query.getString(query.getColumnIndex(Quantity_COLUMN))))+total;
+        }
+        return total;
+    }
+    public long addtowishlist(String title,String image,String desc,String price,String discounted,String color,String size){
         ContentValues contentValues=new ContentValues();
         contentValues.put(WTitle_COLUMN,title);
         contentValues.put(WImage_COLUMN,image);
@@ -155,7 +192,6 @@ public class dbhandler extends SQLiteOpenHelper {
         contentValues.put(WSIZE_COLUMN,size);
         return db.insert(WISHLISTTABLE_NAME,null,contentValues);
     }
-
     public List<modelwishlist> retrievewishlist(){
         List<modelwishlist> s=new ArrayList<>();
         String colomn[]=new String[]{WID_COLUMN,WTitle_COLUMN,WPrice_COLUMN,WDesc_COLUMN,WDISCOUNTED_COLUMN,WCOLOR_COLUMN,WSIZE_COLUMN,WImage_COLUMN};
@@ -175,6 +211,29 @@ public class dbhandler extends SQLiteOpenHelper {
         }
         return s;
     }
-
+    public long deleteinwish(int id){
+        return db.delete(WISHLISTTABLE_NAME,WID_COLUMN+ "=?",new String[]{String.valueOf(id)});
+    }
+    public List<modellastrec> retrievecartforsum(){
+        List<modellastrec> s=new ArrayList<>();
+        String colomn[]=new String[]{ID_COLUMN,Title_COLUMN,Price_COLUMN,Desc_COLUMN,DISCOUNTED_COLUMN,COLOR_COLUMN,SIZE_COLUMN,Image_COLUMN,Quantity_COLUMN,Leftitems_COLUMN};
+        Cursor query= db.query(CARTTABLE_NAME,colomn,null,null,null,null,null,null);
+        while (query.moveToNext()){
+            String a,b,c,d,e,f,g;
+            int i,h,j;
+            a=query.getString(query.getColumnIndex(Title_COLUMN));
+            b=query.getString(query.getColumnIndex(Desc_COLUMN));
+            c=query.getString(query.getColumnIndex(Price_COLUMN));
+            d=query.getString(query.getColumnIndex(DISCOUNTED_COLUMN));
+            e=query.getString(query.getColumnIndex(Quantity_COLUMN));
+            f=query.getString(query.getColumnIndex(COLOR_COLUMN));
+            g=query.getString(query.getColumnIndex(SIZE_COLUMN));
+            h=query.getInt(query.getColumnIndex(ID_COLUMN));
+            i=query.getInt(query.getColumnIndex(Image_COLUMN));
+            j=query.getInt(query.getColumnIndex(Leftitems_COLUMN));
+            s.add(new modellastrec(c,e,i));
+        }
+        return s;
+    }
 
 }
